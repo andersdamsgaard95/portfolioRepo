@@ -1,0 +1,138 @@
+@use 'partial';
+/* 
+Kald på variabel: partial.$variabel-navn;
+Kald på mixin: @include partial.mixin-navn;
+*/
+
+//Imported fonts
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Oswald", sans-serif;
+    font-size: 16px;
+    color: partial.$off-black;
+}
+
+//Fonts
+p {
+    font-size: 1rem;
+}
+h1 {
+    font-size: 2rem;
+    word-break: break-word;
+}
+h2 {
+    font-size: 1.8rem;
+    word-break: break-word;
+}
+h3 {
+    font-size: 1.6rem;
+    word-break: break-word;
+}
+
+//Yderste grid til justering af max-width
+.ygrid {
+    display: grid;
+    grid-template-columns: 0 1fr 0;
+
+    @media screen and (min-width: 1700px) {
+        grid-template-columns: 1fr 1500px 1fr;
+    }
+
+        .content {
+            grid-column: 2/3;
+        }
+}
+
+//Body
+body {
+    background-color: partial.$primær-farve;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 50px 1fr 300px;
+
+        //Header
+        header {
+            grid-row: 1/2;
+
+                //Header container
+                #header-container {
+                    @include partial.responsive-padding;
+                    display: flex;
+                    justify-content: end;
+                    align-items: center;
+
+                        //Global navigation
+                        #global-nav {
+                            display: flex;
+                            gap: 50px;
+
+                            @media screen and (max-width: 700px) {
+                                display: none;
+                            }
+                                
+                                a {
+                                    text-decoration: none;
+                                    color: partial.$off-black;
+                                }
+                        }
+
+                        //Burgermenu
+                        #burger-menu {
+                            display: none;
+
+                            @media screen and (max-width: 700px) {
+                                display: flex;
+                            }
+
+                                #hamburger-ikon {
+                                    height: 1em;
+                                    cursor: pointer;
+                                }
+
+                                #burger-nav {
+                                    //Har display: none i js
+                                    position: absolute;
+                                    top: 50px;
+                                    right: 0;
+                                    left: 0;
+                                    bottom: 0;
+                                    padding: 50px;
+                                    background-color: partial.$detalje-farve;
+                                    font-size: 1.2em;
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 50px;
+                                    align-items: end;
+
+                                        a {
+                                            text-decoration: none;
+                                            color: partial.$off-black;
+                                        }
+                                }
+                        }
+                }
+        }
+
+        //Main
+        main {
+            grid-row: 2/3;
+        }
+
+        //Footer
+        footer {
+            grid-row: 3/4;
+        }
+}
+
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+@charset "UTF-8";
+/* 
+Kald på variabel: partial.$variabel-navn;
+Kald på mixin: @include partial.mixin-navn;
+*/
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Oswald", sans-serif;
+  font-size: 16px;
+  color: #333333;
+}
+
+p {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  word-break: break-word;
+}
+
+h2 {
+  font-size: 1.8rem;
+  word-break: break-word;
+}
+
+h3 {
+  font-size: 1.6rem;
+  word-break: break-word;
+}
+
+.ygrid {
+  display: grid;
+  grid-template-columns: 0 1fr 0;
+}
+@media screen and (min-width: 1700px) {
+  .ygrid {
+    grid-template-columns: 1fr 1500px 1fr;
+  }
+}
+.ygrid .content {
+  grid-column: 2/3;
+}
+
+body {
+  background-color: #FFFADF;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 50px 1fr 300px;
+}
+body header {
+  grid-row: 1/2;
+}
+body header #header-container {
+  padding-left: 100px;
+  padding-right: 100px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+@media screen and (max-width: 900px) {
+  body header #header-container {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body header #header-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+body header #header-container #global-nav {
+  display: flex;
+  gap: 50px;
+}
+@media screen and (max-width: 700px) {
+  body header #header-container #global-nav {
+    display: none;
+  }
+}
+body header #header-container #global-nav a {
+  text-decoration: none;
+  color: #333333;
+}
+body header #header-container #burger-menu {
+  display: none;
+}
+@media screen and (max-width: 700px) {
+  body header #header-container #burger-menu {
+    display: flex;
+  }
+}
+body header #header-container #burger-menu #hamburger-ikon {
+  height: 1em;
+  cursor: pointer;
+}
+body header #header-container #burger-menu #burger-nav {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 50px;
+  background-color: #FF4D00;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: end;
+}
+body header #header-container #burger-menu #burger-nav a {
+  text-decoration: none;
+  color: #333333;
+}
+body main {
+  grid-row: 2/3;
+}
+body footer {
+  grid-row: 3/4;
+}/*# sourceMappingURL=style.css.map */

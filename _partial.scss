@@ -1,0 +1,69 @@
+//Farver
+$primær-farve: #FFFADF;
+$detalje-farve: #FF4D00;
+$off-white: #FAFAFA;
+$off-black: #333333;
+
+//Padding______________________________________________
+//Responsiv padding
+@mixin responsive-padding {
+    padding-left: 100px;
+    padding-right: 100px;
+
+    @media screen and (max-width: 900px) {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    @media screen and (max-width: 700px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+//Kun venstre padding
+@mixin responsive-padding-left {
+    padding-left: 100px;
+
+        @media screen and (max-width: 900px) {
+            padding-left: 50px;
+        }
+        @media screen and (max-width: 700px) {
+            padding-left: 10px;
+        }
+}
+
+//kun højre padding
+@mixin responsive-padding-right {
+    padding-right: 100px;
+
+        @media screen and (max-width: 900px) {
+            padding-right: 50px;
+        }
+        @media screen and (max-width: 700px) {
+            padding-right: 10px;
+        }
+}
+
+//Responsiv padding med 0px mobil-padding 
+@mixin responsive-padding-billede {
+    padding-left: 100px;
+    padding-right: 100px;
+
+    @media screen and (max-width: 900px) {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    @media screen and (max-width: 700px) {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+//Grid____________________________________________
+@mixin grid-2-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
