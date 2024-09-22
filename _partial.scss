@@ -4,6 +4,23 @@ $detalje-farve: #FF4D00;
 $off-white: #FAFAFA;
 $off-black: #333333;
 
+//CTA
+@mixin cta($background-color: #333333, $color: #FAFAFA) {
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    background-color: $background-color;
+    color: $color;
+    width: fit-content;
+    text-decoration: none;
+    box-shadow: 0 0 #FF4D00;
+    transition: all 0.1s;
+
+        &:hover {
+            transform: translate(2px, -2px);
+            box-shadow: -4px 4px #FF4D00;
+        }
+}
+
 //Padding______________________________________________
 //Responsiv padding
 @mixin responsive-padding {
@@ -45,7 +62,7 @@ $off-black: #333333;
         }
 }
 
-//Responsiv padding med 0px mobil-padding 
+//Responsiv padding med 0px til mobil 
 @mixin responsive-padding-billede {
     padding-left: 100px;
     padding-right: 100px;
@@ -58,6 +75,22 @@ $off-black: #333333;
     @media screen and (max-width: 700px) {
         padding-left: 0px;
         padding-right: 0px;
+    }
+}
+
+//Responsive margin med 0px til mobil
+@mixin responsive-margin-billede {
+    margin-left: 100px;
+    margin-right: 100px;
+
+    @media screen and (max-width: 900px) {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    @media screen and (max-width: 700px) {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
@@ -82,4 +115,11 @@ $off-black: #333333;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
+}
+
+//Mobil billede højde____________________________
+@mixin mobil-billede-højde {
+    @media screen and (max-width: 700px) {
+        height: 300px;
+    }
 }

@@ -112,7 +112,7 @@ const developers = {
         ['Telefon: +45 93964789', 'E-mail: andersdamsgaard95@gmail.com'],
         'Front-end webudvikler (studerende)',
         'Bio... ',
-        ['JavaScript', 'css/scss', 'html', 'WordPress', 'Figma'],
+        ['JavaScript', 'css/scss', 'html', 'UI', 'UX', 'WordPress', 'Figma'],
         [
             {
                 title: 'Bookingportal af sommerhus på Fanø',
@@ -135,7 +135,7 @@ function showPortfolio(person) {
     const developer = developers[person];
 
     //Populate hero-tekst-container
-    const heroTekstContainer = document.getElementById('hero-tekst-container');
+    const heroTekstContainer = document.getElementById('hero-personlig-info');
 
     const nameElement = document.createElement('p');
     nameElement.innerHTML = developer.name;
@@ -148,7 +148,33 @@ function showPortfolio(person) {
     const skillsElement = document.createElement('p');
     skillsElement.innerHTML = `Skills: ${developer.skills.join(', ')}`;
     heroTekstContainer.appendChild(skillsElement);
+
+    //Display seneste cases på forside
+    const latestsCasesArray = developer.projects.slice(0,2); //Slice projects-array til de 2 første
+
+    const latestsCasesContainer = document.getElementById('seneste-cases-container');
+
+    latestsCasesArray.forEach(project => {
+        const projectWindow = document.createElement('div');
+        projectWindow.classList.add('project');
+        latestsCasesContainer.appendChild(projectWindow);
+
+        const projectWindowText = document.createElement('div');
+        projectWindowText.classList.add('project-window-text');
+        projectWindow.appendChild(projectWindowText);
+
+        const projectTitleP = document.createElement('p')
+        projectTitleP.innerHTML = project.title;
+        projectWindowText.appendChild(projectTitleP);
+
+        const projectClient = document.createElement('p');
+        projectClient.innerHTML = `Klient: ${project.client}`;
+        projectWindowText.appendChild(projectClient);
+
+        const projectDescription = document.createElement('p');
+        projectDescription.innerHTML = project.description;
+        projectWindowText.appendChild(projectDescription);
+    })
 }
+
 showPortfolio('andersDamsgaard');
-
-

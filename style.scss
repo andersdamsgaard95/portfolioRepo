@@ -101,6 +101,7 @@ body {
 
                                 #burger-nav {
                                     //Har display: none i js
+                                    z-index: 3;
                                     position: absolute;
                                     top: 50px;
                                     right: 0;
@@ -126,6 +127,9 @@ body {
         //Main
         main {
             grid-row: 2/3;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
 
                 //Forside
                 //Hero
@@ -136,11 +140,21 @@ body {
                     justify-content: end;
                     align-items: end;
 
+                    @media screen and (max-width: 700px) {
+                        flex-direction: column;
+                        height: auto;
+                    }
+
                         //Hero billede
                         .hero-img-container {
                             position: absolute;
                             width: 100%;
                             height: 100%;
+
+                            @media screen and (max-width: 700px) {
+                                position: initial;
+                                height: 300px;
+                            }
 
                                 img {
                                     width: 100%;
@@ -162,8 +176,109 @@ body {
                             display: flex;
                             flex-direction: column;
                             gap: 25px;
-                            @include partial.responsive-margin;
                             margin-bottom: 50px;
+                            @include partial.responsive-margin-billede;
+
+                            @media screen and (max-width: 700px) {
+                                max-width: none;
+                                width: 100%;
+                                margin-bottom: 0;
+                                padding: 10px;
+                                border-radius: 0;
+                            }
+
+                                #hero-personlig-info {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+                                }
+
+                                a {
+                                    @include partial.cta;
+                                }
+                        }
+                }
+
+                //Seneste cases
+                #seneste-cases {
+                    @include partial.responsive-padding;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 50px;
+
+                        #seneste-cases-container {
+                            display: flex;
+                            gap: 50px;
+
+                                .project {
+                                    flex: 1;
+                                    width: calc(50% - 25px);
+                                    height: 400px;
+                                    border: 1px solid black;
+                                    display: flex;
+                                    align-items: end;
+                                    background-size: cover;
+                                    background-position: center;
+                                    box-shadow: 0 0 0 0 #FF4D00;
+                                    transition: all 0.2s linear;
+                                    border-radius: 5px;
+                        
+                                    &:hover {
+                                        transform: translate(5px, -5px);
+                                        box-shadow: -10px 10px 0px 0px #FF4D00;
+                                        border-bottom: 0;
+                                        border-left: 0;
+                                    }
+                        
+                        
+                                        .project-window-text {
+                                            border-radius: 0 0 5px 5px;
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 20px;
+                                            padding: 20px;
+                                            width: 100%;
+                                            height: fit-content;
+                                            color: black;
+                                            background-color: rgba(255, 255, 255, 1);
+                                            
+                        
+                                                p {
+                                                    transition: transform 0.3s ease-out;
+                                                }
+                        
+                                                p:nth-of-type(1) {
+                                                    font-size: 2em;
+                                                    font-weight: bold;
+                                                }
+                                                p:nth-of-type(3) {
+                                                    position: absolute;
+                                                    visibility: hidden;
+                                                }
+                                        }
+                        
+                                        &:hover {
+                                            .project-window-text {
+                                                height: 100%;
+                                                background-color: rgba(0, 0, 0, 0.8);
+                                                color: white;
+                                                justify-content: center;
+                                                border-radius: 5px;
+                                                
+                                                    p {
+                                                        transform: translateY(-20px);
+                                                    }
+                                                    p:nth-of-type(3) {
+                                                        position: initial;
+                                                        visibility: visible;
+                                                    }
+                                            }
+                                        }
+                                }
+                        }
+
+                        a {
+                            @include partial.cta;
                         }
                 }
         }
