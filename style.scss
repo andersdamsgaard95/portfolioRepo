@@ -79,6 +79,10 @@ body {
                                 a {
                                     text-decoration: none;
                                     color: partial.$off-black;
+
+                                        &:hover {
+                                            color: partial.$detalje-farve;
+                                        }
                                 }
                         }
 
@@ -91,7 +95,7 @@ body {
                             }
 
                                 #hamburger-ikon {
-                                    height: 1em;
+                                    height: 1.5em;
                                     cursor: pointer;
                                 }
 
@@ -122,6 +126,46 @@ body {
         //Main
         main {
             grid-row: 2/3;
+
+                //Forside
+                //Hero
+                #forside-hero {
+                    position: relative;
+                    height: 600px;
+                    display: flex;
+                    justify-content: end;
+                    align-items: end;
+
+                        //Hero billede
+                        .hero-img-container {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                        }
+
+                        //Hero tekst-container
+                        #hero-tekst-container {
+                            z-index: 1;
+                            background-color: partial.$off-white;
+                            border: 1px solid partial.$off-black;
+                            border-radius: 5px;
+                            padding: 50px;
+                            max-width: 500px;
+                            height: fit-content;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 25px;
+                            @include partial.responsive-margin;
+                            margin-bottom: 50px;
+                        }
+                }
         }
 
         //Footer

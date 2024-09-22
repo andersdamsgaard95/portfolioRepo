@@ -61,6 +61,22 @@ $off-black: #333333;
     }
 }
 
+//Responsive margin
+@mixin responsive-margin {
+    margin-left: 100px;
+    margin-right: 100px;
+
+    @media screen and (max-width: 900px) {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    @media screen and (max-width: 700px) {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
 //Grid____________________________________________
 @mixin grid-2-columns {
     display: grid;
