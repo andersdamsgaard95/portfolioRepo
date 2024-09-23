@@ -41,12 +41,20 @@ h3 {
     grid-template-columns: 0 1fr 0;
 
     @media screen and (min-width: 1700px) {
-        grid-template-columns: 1fr 1500px 1fr;
+        grid-template-columns: 1fr 1700px 1fr;
     }
 
         .content {
             grid-column: 2/3;
         }
+}
+
+//Page flex column under hero
+.page-flex-column {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    margin-top: 50px;
 }
 
 //Body
@@ -127,9 +135,6 @@ body {
         //Main
         main {
             grid-row: 2/3;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
 
                 //Forside
                 //Hero
@@ -166,16 +171,8 @@ body {
 
                         //Hero tekst-container
                         #hero-tekst-container {
+                            @include partial.tekst-boks;
                             z-index: 1;
-                            background-color: partial.$off-white;
-                            border: 1px solid partial.$off-black;
-                            border-radius: 5px;
-                            padding: 50px;
-                            max-width: 500px;
-                            height: fit-content;
-                            display: flex;
-                            flex-direction: column;
-                            gap: 25px;
                             margin-bottom: 50px;
                             @include partial.responsive-margin-billede;
 
@@ -183,8 +180,8 @@ body {
                                 max-width: none;
                                 width: 100%;
                                 margin-bottom: 0;
-                                padding: 10px;
                                 border-radius: 0;
+                                //border: none;
                             }
 
                                 #hero-personlig-info {
@@ -210,41 +207,69 @@ body {
                             display: flex;
                             gap: 50px;
 
+                            @media screen and (max-width: 700px) {
+                                flex-direction: column;
+                            }
+
                                 .project {
                                     flex: 1;
+                                    cursor: pointer;
                                     width: calc(50% - 25px);
-                                    height: 400px;
+                                    min-height: 450px;
+                                    max-height: 450px;
                                     border: 1px solid black;
-                                    display: flex;
-                                    align-items: end;
-                                    background-size: cover;
-                                    background-position: center;
-                                    box-shadow: 0 0 0 0 #FF4D00;
-                                    transition: all 0.2s linear;
+                                    display: grid;
+                                    grid-template-rows: minmax(0, 1fr) auto;
+                                    grid-template-columns: 1fr;
+                                    box-shadow: 0 0 0 0 partial.$detalje-farve;
                                     border-radius: 5px;
-                        
+                                    overflow: hidden; //pga border-radius på container
+                                    transition: transform 0.2s, box-shadow 0.2s;
+
+                                    @media screen and (max-width: 700px) {
+                                        width: 100%;
+                                        //height: 450px;
+                                    }
+
                                     &:hover {
                                         transform: translate(5px, -5px);
-                                        box-shadow: -10px 10px 0px 0px #FF4D00;
-                                        border-bottom: 0;
-                                        border-left: 0;
+                                        box-shadow: -10px 10px 0px 0px partial.$detalje-farve;
+                                        max-height: fit-content;
                                     }
-                        
+
+                                        .project-img-container {
+                                            grid-row: 1/2;
+                                            grid-column: 1/2;
+
+                                                img {
+                                                    height: 100%;
+                                                    width: 100%;
+                                                    object-fit: cover;
+                                                    object-position: center;
+                                                }
+                                        }
                         
                                         .project-window-text {
+                                            grid-row: 2/3;
+                                            grid-column: 1/2;
                                             border-radius: 0 0 5px 5px;
                                             display: flex;
                                             flex-direction: column;
-                                            gap: 20px;
+                                            justify-content: end;
+                                            gap: 10px;
                                             padding: 20px;
                                             width: 100%;
                                             height: fit-content;
-                                            color: black;
-                                            background-color: rgba(255, 255, 255, 1);
+                                            color: partial.$off-black;
+                                            background-color: partial.$off-white;
+
+                                            @media screen and (max-width: 700px) {
+                                                padding: 10px;
+                                            }
                                             
                         
                                                 p {
-                                                    transition: transform 0.3s ease-out;
+                                                    transition: transform 0.3s;
                                                 }
                         
                                                 p:nth-of-type(1) {
@@ -260,6 +285,7 @@ body {
                                         &:hover {
                                             .project-window-text {
                                                 height: 100%;
+                                                grid-row: 1/3;
                                                 background-color: rgba(0, 0, 0, 0.8);
                                                 color: white;
                                                 justify-content: center;
@@ -267,11 +293,18 @@ body {
                                                 
                                                     p {
                                                         transform: translateY(-20px);
+
+                                                        @media screen and (max-width: 700px) {
+                                                            transform: translateY(-10px);
+                                                        }
                                                     }
                                                     p:nth-of-type(3) {
                                                         position: initial;
                                                         visibility: visible;
                                                     }
+                                            }
+                                            .project-img-container {
+                                                grid-row: 1/3
                                             }
                                         }
                                 }
@@ -281,6 +314,154 @@ body {
                             @include partial.cta;
                         }
                 }
+
+                //Om mig forside
+                #om-mig-forside {
+                    @include partial.responsive-margin;
+                    height: 600px;
+                    position: relative;
+
+                        #om-mig-forside-img-container {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: calc(100% - 50px);
+                            height: calc(100% - 50px);
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                        }
+                        #om-mig-forside-tekst-boks {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            @include partial.tekst-boks;
+
+                            @media screen and (max-width: 950px) {
+                                max-width: 50%;
+                            }
+                            @media screen and (max-width: 700px) {
+                                width: 100%;
+                                max-width: calc(100% - 50px);
+                            }
+
+                                a {
+                                    @include partial.cta;
+                                }
+                        }
+                }
+
+                //Kontakt forside
+                #kontakt-forside {
+                    @include partial.responsive-margin;
+                    height: 600px;
+                    position: relative;
+
+                        #kontakt-forside-img-container {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: calc(100% - 50px);
+                            height: calc(100% - 50px);
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+
+                                    @media screen and (max-width: 700px) {
+                                        object-position: bottom;
+                                    }
+                                }
+                        }
+                        #kontakt-forside-tekst-boks {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            @include partial.tekst-boks;
+
+                            @media screen and (max-width: 950px) {
+                                max-width: 50%;
+                            }
+                            @media screen and (max-width: 700px) {
+                                width: 100%;
+                                max-width: calc(100% - 50px);
+                            }
+
+                                a {
+                                    @include partial.cta;
+                                }
+                        }
+                }
+
+                //Om mig
+                //Hero
+                #om-mig-hero {
+                    height: 600px;
+                    position: relative;
+                    display: flex;
+                    align-items: end;
+
+                    @media screen and (max-width: 700px) {
+                        height: auto;
+                        flex-direction: column;
+                        background-color: red;
+                    }
+
+                        .hero-img-container {
+                            position: absolute;
+                            height: 100%;
+                            width: 100%;
+
+                            @media screen and (max-width: 700px) {
+                                position: initial;
+                                height: 300px;
+                            }
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                        }
+
+                        #om-hero-tekst-boks {
+                            @include partial.tekst-boks;
+                            z-index: 1;
+                            @include partial.responsive-margin-billede;
+                            margin-bottom: 50px;
+
+                            @media screen and (max-width: 700px) {
+                                max-width: none;
+                                margin-bottom: 0;
+                                width: 100%;
+                                border-radius: 0;
+                            }
+                        }
+                }
+
+                //Video
+                #video-container {
+                    @include partial.responsive-padding;
+                    display: flex;
+                    justify-content: center;
+                    
+                        video {
+                            width: 100%;
+                            max-width: 900px;
+                            border: 1px solid partial.$off-black;
+                            border-radius: 5px;
+                        }
+                }
+
+                //Om mig sektion 1
+                
         }
 
         //Footer

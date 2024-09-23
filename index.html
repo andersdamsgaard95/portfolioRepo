@@ -9,7 +9,7 @@
 </head>
 
 <!--Body-->
-<body>
+<body id="forside">
 
     <!--Header-->
     <header class="ygrid">
@@ -44,20 +44,57 @@
                 <!--Hero tekst-container-->
                 <div id="hero-tekst-container">
                     <h1>Portefølje</h1>
-                    <div id="hero-personlig-info"></div>
+                    <div class="hero-tekst-boks" id="hero-personlig-info"></div>
                     <a href="cases.html">Se alle cases</a>
                 </div>
             </div>
         </section>
 
-        <!--Seneste cases-->
-        <section class="ygrid">
-            <div id="seneste-cases" class="content">
-                <h2>Seneste cases</h2>
-                <div id="seneste-cases-container"></div>
-                <a href="cases.html">Se alle cases</a>
-            </div>
-        </section>
+        <!--Page flex-->
+        <div class="page-flex-column">
+
+            <!--Seneste cases-->
+            <section class="ygrid">
+                <div id="seneste-cases" class="content">
+                    <h2>Seneste cases</h2>
+                    <div id="seneste-cases-container"></div>
+                    <a href="cases.html">Se alle cases</a>
+                </div>
+            </section>
+
+            <!--Om mig forside-->
+            <section class="ygrid">
+                <div id="om-mig-forside" class="content">
+                    <!--Billede-->
+                    <div id="om-mig-forside-img-container">
+                        <img src="img/anders_damsgaard_i_skov.jpg" alt="Anders Damsgaard ser sofistikeret ud i en skov">
+                    </div>
+                    <!--Tekst boks-->
+                    <div id="om-mig-forside-tekst-boks">
+                        <h2>Jeg har aldrig brudt mig om ferier</h2>
+                        <p>Jeg bestræber mig altid på at få en hverdag, jeg ikke har lyst til en ferie fra.</p>
+                        <a href="ommig.html">Om mig</a>
+                    </div>
+                </div>
+            </section>
+
+            <!--Kontakt forside-->
+            <section class="ygrid">
+                <div id="kontakt-forside" class="content">
+                    <!--Billede-->
+                    <div id="kontakt-forside-img-container">
+                        <img src="img/serioes_anders.jpg" alt="Anders Damsgaard, der ser seriøs ud, i en skov">
+                    </div>
+                    <!--Tekst boks-->
+                    <div id="kontakt-forside-tekst-boks">
+                        <h2>Jeg forstår ikke, hvorfor I ikke har ringet endnu</h2>
+                        <a href="kontakt.html">Kontakt mig</a>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+
     </main>
 
     <!--Footer-->

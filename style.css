@@ -40,11 +40,18 @@ h3 {
 }
 @media screen and (min-width: 1700px) {
   .ygrid {
-    grid-template-columns: 1fr 1500px 1fr;
+    grid-template-columns: 1fr 1700px 1fr;
   }
 }
 .ygrid .content {
   grid-column: 2/3;
+}
+
+.page-flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  margin-top: 50px;
 }
 
 body {
@@ -63,7 +70,7 @@ body header #header-container {
   justify-content: end;
   align-items: center;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
   body header #header-container {
     padding-left: 50px;
     padding-right: 50px;
@@ -124,9 +131,6 @@ body header #header-container #burger-menu #burger-nav a {
 }
 body main {
   grid-row: 2/3;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
 }
 body main #forside-hero {
   position: relative;
@@ -161,7 +165,6 @@ body main #forside-hero .hero-img-container img {
      object-position: center;
 }
 body main #forside-hero #hero-tekst-container {
-  z-index: 1;
   background-color: #FAFAFA;
   border: 1px solid #333333;
   border-radius: 5px;
@@ -172,11 +175,17 @@ body main #forside-hero #hero-tekst-container {
   display: flex;
   flex-direction: column;
   gap: 25px;
+  z-index: 1;
   margin-bottom: 50px;
   margin-left: 100px;
   margin-right: 100px;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 700px) {
+  body main #forside-hero #hero-tekst-container {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 1100px) {
   body main #forside-hero #hero-tekst-container {
     margin-left: 50px;
     margin-right: 50px;
@@ -193,7 +202,6 @@ body main #forside-hero #hero-tekst-container {
     max-width: none;
     width: 100%;
     margin-bottom: 0;
-    padding: 10px;
     border-radius: 0;
   }
 }
@@ -224,7 +232,7 @@ body main #seneste-cases {
   flex-direction: column;
   gap: 50px;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
   body main #seneste-cases {
     padding-left: 50px;
     padding-right: 50px;
@@ -240,39 +248,71 @@ body main #seneste-cases #seneste-cases-container {
   display: flex;
   gap: 50px;
 }
+@media screen and (max-width: 700px) {
+  body main #seneste-cases #seneste-cases-container {
+    flex-direction: column;
+  }
+}
 body main #seneste-cases #seneste-cases-container .project {
   flex: 1;
+  cursor: pointer;
   width: calc(50% - 25px);
-  height: 400px;
+  min-height: 450px;
+  max-height: 450px;
   border: 1px solid black;
-  display: flex;
-  align-items: end;
-  background-size: cover;
-  background-position: center;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
   box-shadow: 0 0 0 0 #FF4D00;
-  transition: all 0.2s linear;
   border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+@media screen and (max-width: 700px) {
+  body main #seneste-cases #seneste-cases-container .project {
+    width: 100%;
+  }
 }
 body main #seneste-cases #seneste-cases-container .project:hover {
   transform: translate(5px, -5px);
   box-shadow: -10px 10px 0px 0px #FF4D00;
-  border-bottom: 0;
-  border-left: 0;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}
+body main #seneste-cases #seneste-cases-container .project .project-img-container {
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+body main #seneste-cases #seneste-cases-container .project .project-img-container img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 body main #seneste-cases #seneste-cases-container .project .project-window-text {
+  grid-row: 2/3;
+  grid-column: 1/2;
   border-radius: 0 0 5px 5px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: end;
+  gap: 10px;
   padding: 20px;
   width: 100%;
   height: -moz-fit-content;
   height: fit-content;
-  color: black;
-  background-color: rgb(255, 255, 255);
+  color: #333333;
+  background-color: #FAFAFA;
+}
+@media screen and (max-width: 700px) {
+  body main #seneste-cases #seneste-cases-container .project .project-window-text {
+    padding: 10px;
+  }
 }
 body main #seneste-cases #seneste-cases-container .project .project-window-text p {
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s;
 }
 body main #seneste-cases #seneste-cases-container .project .project-window-text p:nth-of-type(1) {
   font-size: 2em;
@@ -284,6 +324,7 @@ body main #seneste-cases #seneste-cases-container .project .project-window-text 
 }
 body main #seneste-cases #seneste-cases-container .project:hover .project-window-text {
   height: 100%;
+  grid-row: 1/3;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   justify-content: center;
@@ -292,9 +333,17 @@ body main #seneste-cases #seneste-cases-container .project:hover .project-window
 body main #seneste-cases #seneste-cases-container .project:hover .project-window-text p {
   transform: translateY(-20px);
 }
+@media screen and (max-width: 700px) {
+  body main #seneste-cases #seneste-cases-container .project:hover .project-window-text p {
+    transform: translateY(-10px);
+  }
+}
 body main #seneste-cases #seneste-cases-container .project:hover .project-window-text p:nth-of-type(3) {
   position: initial;
   visibility: visible;
+}
+body main #seneste-cases #seneste-cases-container .project:hover .project-img-container {
+  grid-row: 1/3;
 }
 body main #seneste-cases a {
   padding: 10px 20px 10px 20px;
@@ -310,6 +359,267 @@ body main #seneste-cases a {
 body main #seneste-cases a:hover {
   transform: translate(2px, -2px);
   box-shadow: -4px 4px #FF4D00;
+}
+body main #om-mig-forside {
+  margin-left: 100px;
+  margin-right: 100px;
+  height: 600px;
+  position: relative;
+}
+@media screen and (max-width: 1100px) {
+  body main #om-mig-forside {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-forside {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+body main #om-mig-forside #om-mig-forside-img-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+}
+body main #om-mig-forside #om-mig-forside-img-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body main #om-mig-forside #om-mig-forside-tekst-boks {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #FAFAFA;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 50px;
+  max-width: 500px;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-forside #om-mig-forside-tekst-boks {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 950px) {
+  body main #om-mig-forside #om-mig-forside-tekst-boks {
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-forside #om-mig-forside-tekst-boks {
+    width: 100%;
+    max-width: calc(100% - 50px);
+  }
+}
+body main #om-mig-forside #om-mig-forside-tekst-boks a {
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  background-color: #333333;
+  color: #FAFAFA;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-decoration: none;
+  box-shadow: 0 0 #FF4D00;
+  transition: all 0.1s;
+}
+body main #om-mig-forside #om-mig-forside-tekst-boks a:hover {
+  transform: translate(2px, -2px);
+  box-shadow: -4px 4px #FF4D00;
+}
+body main #kontakt-forside {
+  margin-left: 100px;
+  margin-right: 100px;
+  height: 600px;
+  position: relative;
+}
+@media screen and (max-width: 1100px) {
+  body main #kontakt-forside {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-forside {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+body main #kontakt-forside #kontakt-forside-img-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+}
+body main #kontakt-forside #kontakt-forside-img-container img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-forside #kontakt-forside-img-container img {
+    -o-object-position: bottom;
+       object-position: bottom;
+  }
+}
+body main #kontakt-forside #kontakt-forside-tekst-boks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #FAFAFA;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 50px;
+  max-width: 500px;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-forside #kontakt-forside-tekst-boks {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 950px) {
+  body main #kontakt-forside #kontakt-forside-tekst-boks {
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-forside #kontakt-forside-tekst-boks {
+    width: 100%;
+    max-width: calc(100% - 50px);
+  }
+}
+body main #kontakt-forside #kontakt-forside-tekst-boks a {
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  background-color: #333333;
+  color: #FAFAFA;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-decoration: none;
+  box-shadow: 0 0 #FF4D00;
+  transition: all 0.1s;
+}
+body main #kontakt-forside #kontakt-forside-tekst-boks a:hover {
+  transform: translate(2px, -2px);
+  box-shadow: -4px 4px #FF4D00;
+}
+body main #om-mig-hero {
+  height: 600px;
+  position: relative;
+  display: flex;
+  align-items: end;
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-hero {
+    height: auto;
+    flex-direction: column;
+    background-color: red;
+  }
+}
+body main #om-mig-hero .hero-img-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-hero .hero-img-container {
+    position: initial;
+    height: 300px;
+  }
+}
+body main #om-mig-hero .hero-img-container img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body main #om-mig-hero #om-hero-tekst-boks {
+  background-color: #FAFAFA;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 50px;
+  max-width: 500px;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  z-index: 1;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-hero #om-hero-tekst-boks {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  body main #om-mig-hero #om-hero-tekst-boks {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-hero #om-hero-tekst-boks {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #om-mig-hero #om-hero-tekst-boks {
+    max-width: none;
+    margin-bottom: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+body main #video-container {
+  padding-left: 100px;
+  padding-right: 100px;
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 1100px) {
+  body main #video-container {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #video-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+body main #video-container video {
+  width: 100%;
+  max-width: 900px;
+  border: 1px solid #333333;
+  border-radius: 5px;
 }
 body footer {
   grid-row: 3/4;

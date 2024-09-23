@@ -111,14 +111,14 @@ const developers = {
         'Oslogade 2 st tv, Aarhus N',
         ['Telefon: +45 93964789', 'E-mail: andersdamsgaard95@gmail.com'],
         'Front-end webudvikler (studerende)',
-        'Bio... ',
+        'Bio hnjwsndjwnsjqnjdbnwqja',
         ['JavaScript', 'css/scss', 'html', 'UI', 'UX', 'WordPress', 'Figma'],
         [
             {
                 title: 'Bookingportal af sommerhus på Fanø',
                 client: 'Bjarne Rasmussen',
-                description: 'Længere beskrivelse... Webdesign og -udvikling med html, scss og js af bookinghjemmeside til sommerhus på Fanø.',
-                picture: 'img/fanø-billede.jpg'
+                description: 'Længere beskrivelse... Webdesign og -udvikling med html, scss og js af bookinghjemmeside til sommerhus på Fanø. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error consequuntur officiis repudiandae autem minus natus. Quae neque ratione corporis laudantium odio corrupti facere harum, dolorum repudiandae aut sapiente, quos illo, eum fugiat tempora vel facilis enim voluptate delectus accusantium adipisci? Similique voluptates, provident necessitatibus consequatur aperiam delectus impedit blanditiis illo. Fanø.',
+                picture: 'img/fanø-sommerhus-projekt.jpg'
             },
             {
                 title: 'WordPress webdesign og rebranding af produktet FireFly',
@@ -129,10 +129,31 @@ const developers = {
     )
 }
 
-//Funktion til display af portefølje info
-function showPortfolio(person) {
+//Funktion til display af portefølje info - Forside
+function showPortfolioForside(person) {
 
     const developer = developers[person];
+
+    /*const heroBoxes = document.querySelectorAll('.hero-tekst-boks');
+    heroBoxes.forEach( (box) => {
+        if (document.body.id === 'forside') {
+            const nameElement = document.createElement('p');
+            nameElement.innerHTML = developer.name;
+            box.appendChild(nameElement);
+
+            const occupationElement = document.createElement('p');
+            occupationElement.innerHTML = developer.occupation;
+            box.appendChild(occupationElement);
+
+            const skillsElement = document.createElement('p');
+            skillsElement.innerHTML = `Skills: ${developer.skills.join(', ')}`;
+            box.appendChild(skillsElement);
+        } else if (document.body.id === 'om-mig') {
+            const bioElement = document.createElement('p');
+            bioElement.innerHTML = developer.bio;
+            box.appendChild(bioElement);
+        }
+    })*/
 
     //Populate hero-tekst-container
     const heroTekstContainer = document.getElementById('hero-personlig-info');
@@ -159,6 +180,13 @@ function showPortfolio(person) {
         projectWindow.classList.add('project');
         latestsCasesContainer.appendChild(projectWindow);
 
+        const projectWindowImgContainer = document.createElement('div');
+        projectWindowImgContainer.classList.add('project-img-container');
+        projectWindow.appendChild(projectWindowImgContainer);
+        const projectImg = document.createElement('img');
+        projectImg.src = project.picture;
+        projectWindowImgContainer.appendChild(projectImg);
+
         const projectWindowText = document.createElement('div');
         projectWindowText.classList.add('project-window-text');
         projectWindow.appendChild(projectWindowText);
@@ -174,7 +202,26 @@ function showPortfolio(person) {
         const projectDescription = document.createElement('p');
         projectDescription.innerHTML = project.description;
         projectWindowText.appendChild(projectDescription);
-    })
+    });
 }
 
-showPortfolio('andersDamsgaard');
+//Funktion til display af portefølje info - Om side
+function showPortfolioAboutPage(person) {
+
+    const developer = developers[person];
+
+    const omMigHeroTekstBoks = document.getElementById('om-hero-tekst-boks');
+
+    const bioElement = document.createElement('p');
+    bioElement.innerHTML = developer.bio;
+    omMigHeroTekstBoks.appendChild(bioElement);
+}
+
+if (document.body.id === 'forside') {
+    showPortfolioForside('andersDamsgaard');
+} else if (document.body.id === 'om-side') {
+    showPortfolioAboutPage('andersDamsgaard');
+}
+
+
+ 
