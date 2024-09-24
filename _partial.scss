@@ -4,6 +4,12 @@ $detalje-farve: #FF4D00;
 $off-white: #FAFAFA;
 $off-black: #333333;
 
+//Border-radius
+$box-border-radius: 5px;
+
+//Hero højde
+$hero-højde: 600px;
+
 //CTA
 @mixin cta($background-color: #333333, $color: #FAFAFA) {
     padding: 10px 20px 10px 20px;
@@ -111,9 +117,14 @@ $off-black: #333333;
 }
 
 //Grid____________________________________________
-@mixin grid-2-columns {
+@mixin grid-2-columns-big-left {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 2fr;
+    gap: 50px;
+}
+@mixin grid-2-columns-big-right {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
     gap: 50px;
 }
 
@@ -125,12 +136,12 @@ $off-black: #333333;
 }
 
 //Tekst boks
-@mixin tekst-boks {
+@mixin tekst-boks($max-width: 500px) {
     background-color: $off-white;
     border: 1px solid $off-black;
     border-radius: 5px;
     padding: 50px;
-    max-width: 500px;
+    max-width: $max-width;
     height: fit-content;
     display: flex;
     flex-direction: column;
