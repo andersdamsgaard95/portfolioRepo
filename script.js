@@ -67,7 +67,7 @@ toggleBurgerMenu();
 
 //Portfolio details class
 class Portfolio {
-    constructor(name, birthdate, address, contactInfo, occupation, bio, skills, projects) {
+    constructor(name, birthdate, address, contactInfo, occupation, bio, skills, projects, portray) {
         this._name = name;
         this._birthdate = birthdate;
         this._address = address;
@@ -76,6 +76,7 @@ class Portfolio {
         this._bio = bio;
         this._skills = skills;
         this._projects = projects;
+        this._portray = portray;
     }
 
     get name() {
@@ -102,6 +103,9 @@ class Portfolio {
     get projects() {
         return this._projects;
     }
+    get portray() {
+        return this._portray;
+    }
 }
 
 const developers = {
@@ -124,8 +128,15 @@ const developers = {
                 title: 'WordPress webdesign og rebranding af produktet FireFly',
                 client: 'RealLife skoleprojekt udarbejdet for Gate3Aps',
                 description: 'Længere beskrivelse... duiewesqw adoiwqjasnwq djiwqoskqwas dxwqopdjiwqjd xwqasdxwqand wqasdjxwqidjxwqas'
+            },
+            {
+                title: 'Bookingportal af sommerhus på Fanø',
+                client: 'Bjarne Rasmussen',
+                description: 'Længere beskrivelse... Webdesign og -udvikling med html, scss og js af bookinghjemmeside til sommerhus på Fanø. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error consequuntur officiis repudiandae autem minus natus. Quae neque ratione corporis laudantium odio corrupti facere harum, dolorum repudiandae aut sapiente, quos illo, eum fugiat tempora vel facilis enim voluptate delectus accusantium adipisci? Similique voluptates, provident necessitatibus consequatur aperiam delectus impedit blanditiis illo. Fanø.',
+                picture: 'img/fanø-sommerhus-projekt.jpg'
             }
-        ]
+        ],
+        'img/anders_portræt.jpg'
     )
 }
 
@@ -217,10 +228,101 @@ function showPortfolioAboutPage(person) {
     omMigHeroTekstBoks.appendChild(bioElement);
 }
 
+//Funktion til display af portefølje - Cases side
+function showPortfolioCasesPage (person) {
+
+    const developer = developers[person]; 
+
+    casesHeroHeadingBoks = document.getElementById('cases-hero-heading');
+    const casesAuthor = document.createElement('div');
+    casesAuthor.id = 'cases-author';
+    casesHeroHeadingBoks.appendChild(casesAuthor);
+
+    const portrayContainer = document.createElement('div');
+    portrayContainer.id = 'portræt-img-container';
+    casesAuthor.appendChild(portrayContainer);
+    
+    const portray = document.createElement('img');
+    portray.src = developer.portray;
+    portrayContainer.appendChild(portray);
+    
+    const casesBy = document.createElement('p');
+    casesBy.innerHTML = `af ${developer.name}`;
+    casesAuthor.appendChild(casesBy);
+
+    //Display alle cases
+    const allCasesContainer = document.getElementById('alle-cases-container');
+
+    developer.projects.forEach( (project) => {
+        const projectWindow = document.createElement('div');
+        projectWindow.classList.add('project');
+        allCasesContainer.appendChild(projectWindow);
+
+        const projectWindowImgContainer = document.createElement('div');
+        projectWindowImgContainer.classList.add('project-img-container');
+        projectWindow.appendChild(projectWindowImgContainer);
+        const projectImg = document.createElement('img');
+        projectImg.src = project.picture;
+        projectWindowImgContainer.appendChild(projectImg);
+
+        const projectWindowText = document.createElement('div');
+        projectWindowText.classList.add('project-window-text');
+        projectWindow.appendChild(projectWindowText);
+
+        const projectTitleP = document.createElement('p')
+        projectTitleP.innerHTML = project.title;
+        projectWindowText.appendChild(projectTitleP);
+
+        const projectClient = document.createElement('p');
+        projectClient.innerHTML = `Klient: ${project.client}`;
+        projectWindowText.appendChild(projectClient);
+
+        const projectDescription = document.createElement('p');
+        projectDescription.innerHTML = project.description;
+        projectWindowText.appendChild(projectDescription);
+    })
+    
+
+}
+
+//Funktion til display af portefølje - Kontakt side
+function showPortfolioContactPage (person) {
+
+    const developer = developers[person];
+
+    //Portray picture
+    const contactImgContainer = document.getElementById('kontakt-img-container');
+    const portrayImg = document.createElement('img');
+    portrayImg.src = developer.portray;
+    contactImgContainer.appendChild(portrayImg);
+
+    //Contact info
+    const contactInfoTextBox = document.getElementById('kontakt-tekst-boks');
+
+    const contactInfoDiv = document.createElement('div');
+    contactInfoDiv.id = 'contact-info';
+    contactInfoTextBox.appendChild(contactInfoDiv);
+
+    developer.contactInfo.forEach( (element) => {
+        const contactElement = document.createElement('p');
+        contactElement.innerHTML = element;
+        contactInfoDiv.appendChild(contactElement);
+    })
+
+    const addressElement = document.createElement('p');
+    addressElement.innerHTML = `Adresse: ${developer.address}`; 
+    contactInfoDiv.appendChild(addressElement);
+}
+
+
 if (document.body.id === 'forside') {
     showPortfolioForside('andersDamsgaard');
 } else if (document.body.id === 'om-side') {
     showPortfolioAboutPage('andersDamsgaard');
+} else if (document.body.id === 'cases-side') {
+    showPortfolioCasesPage('andersDamsgaard');
+} else if (document.body.id === 'kontakt-side') {
+    showPortfolioContactPage('andersDamsgaard');
 }
 
 
