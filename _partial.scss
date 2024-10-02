@@ -151,3 +151,109 @@ $hero-højde: 600px;
         padding: 10px;
     }
 }
+
+@mixin display-cases-styling {
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 700px) {
+        flex-direction: column;
+    }
+
+        .project {
+            width: calc(50% - 25px);
+            min-height: 450px;
+            max-height: 450px;
+            border: 1px solid black;
+            display: grid;
+            grid-template-rows: minmax(0, 1fr) auto;
+            grid-template-columns: 1fr;
+            box-shadow: 0 0 0 0 $detalje-farve;
+            border-radius: 5px;
+            overflow: hidden; //pga border-radius på container
+            transition: transform 0.2s, box-shadow 0.2s;
+
+            @media screen and (max-width: 700px) {
+                width: 100%;
+                //height: 450px;
+            }
+
+            &:hover {
+                transform: translate(5px, -5px);
+                box-shadow: -10px 10px 0px 0px $detalje-farve;
+                max-height: fit-content;
+            }
+
+                .project-img-container {
+                    grid-row: 1/2;
+                    grid-column: 1/2;
+
+                        img {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                }
+
+                .project-window-text {
+                    all: unset;
+                    cursor: pointer;
+                    grid-row: 2/3;
+                    grid-column: 1/2;
+                    border-radius: 0 0 5px 5px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    gap: 10px;
+                    padding: 20px;
+                    height: fit-content;
+                    color: $off-white;
+                    background-color: $off-black;
+
+                    @media screen and (max-width: 700px) {
+                        padding: 10px;
+                    }
+                    
+                        p {
+                            transition: transform 0.3s;
+                        }
+
+                        p:nth-of-type(1) {
+                            font-size: 2em;
+                            font-weight: bold;
+                        }
+                        p:nth-of-type(3) {
+                            position: absolute;
+                            visibility: hidden;
+                        }
+                }
+
+                &:hover {
+                    .project-window-text {
+                        height: 100%;
+                        grid-row: 1/3;
+                        background-color: rgba(255, 255, 255, 0.9);
+                        color: black;
+                        justify-content: center;
+                        border-radius: 5px;
+                        
+                            p {
+                                transform: translateY(-20px);
+
+                                @media screen and (max-width: 700px) {
+                                    transform: translateY(-10px);
+                                }
+                            }
+                            p:nth-of-type(3) {
+                                position: initial;
+                                visibility: visible;
+                            }
+                    }
+                    .project-img-container {
+                        grid-row: 1/3
+                    }
+                }
+        }
+}

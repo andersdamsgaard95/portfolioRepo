@@ -62,7 +62,7 @@ body {
     background-color: partial.$primær-farve;
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 50px 1fr 300px;
+    grid-template-rows: 50px 1fr auto;
 
         //Header
         header {
@@ -134,6 +134,10 @@ body {
                                         }
                                 }
                         }
+
+                        .active-link {
+                            color: partial.$detalje-farve !important;
+                        }
                 }
         }
 
@@ -144,11 +148,11 @@ body {
                 //Forside
                 //Hero
                 #forside-hero {
+                    @include partial.responsive-margin-billede;
                     position: relative;
                     height: 600px;
                     display: flex;
-                    justify-content: end;
-                    align-items: end;
+                    align-items: center;
 
                     @media screen and (max-width: 700px) {
                         flex-direction: column;
@@ -158,12 +162,14 @@ body {
                         //Hero billede
                         .hero-img-container {
                             position: absolute;
-                            width: 100%;
+                            right: 0;
+                            width: calc(100% - 50px);
                             height: 100%;
 
                             @media screen and (max-width: 700px) {
                                 position: initial;
                                 height: 300px;
+                                width: 100%;
                             }
 
                                 img {
@@ -178,14 +184,15 @@ body {
                         #hero-tekst-container {
                             @include partial.tekst-boks;
                             z-index: 1;
-                            margin-bottom: 50px;
-                            @include partial.responsive-margin-billede;
+                            //margin-right: 50px;
+                            //@include partial.responsive-margin-billede;
 
                             @media screen and (max-width: 700px) {
                                 max-width: none;
                                 width: 100%;
                                 margin-bottom: 0;
                                 border-radius: 0;
+                                //margin-right: 0;
                                 //border: none;
                             }
 
@@ -209,110 +216,7 @@ body {
                     gap: 50px;
 
                         #seneste-cases-container {
-                            display: flex;
-                            gap: 50px;
-
-                            @media screen and (max-width: 700px) {
-                                flex-direction: column;
-                            }
-
-                                .project {
-                                    flex: 1;
-                                    cursor: pointer;
-                                    width: calc(50% - 25px);
-                                    min-height: 450px;
-                                    max-height: 450px;
-                                    border: 1px solid black;
-                                    display: grid;
-                                    grid-template-rows: minmax(0, 1fr) auto;
-                                    grid-template-columns: 1fr;
-                                    box-shadow: 0 0 0 0 partial.$detalje-farve;
-                                    border-radius: 5px;
-                                    overflow: hidden; //pga border-radius på container
-                                    transition: transform 0.2s, box-shadow 0.2s;
-
-                                    @media screen and (max-width: 700px) {
-                                        width: 100%;
-                                        //height: 450px;
-                                    }
-
-                                    &:hover {
-                                        transform: translate(5px, -5px);
-                                        box-shadow: -10px 10px 0px 0px partial.$detalje-farve;
-                                        max-height: fit-content;
-                                    }
-
-                                        .project-img-container {
-                                            grid-row: 1/2;
-                                            grid-column: 1/2;
-
-                                                img {
-                                                    height: 100%;
-                                                    width: 100%;
-                                                    object-fit: cover;
-                                                    object-position: center;
-                                                }
-                                        }
-                        
-                                        .project-window-text {
-                                            grid-row: 2/3;
-                                            grid-column: 1/2;
-                                            border-radius: 0 0 5px 5px;
-                                            display: flex;
-                                            flex-direction: column;
-                                            justify-content: end;
-                                            gap: 10px;
-                                            padding: 20px;
-                                            width: 100%;
-                                            height: fit-content;
-                                            color: partial.$off-black;
-                                            background-color: partial.$off-white;
-
-                                            @media screen and (max-width: 700px) {
-                                                padding: 10px;
-                                            }
-                                            
-                        
-                                                p {
-                                                    transition: transform 0.3s;
-                                                }
-                        
-                                                p:nth-of-type(1) {
-                                                    font-size: 2em;
-                                                    font-weight: bold;
-                                                }
-                                                p:nth-of-type(3) {
-                                                    position: absolute;
-                                                    visibility: hidden;
-                                                }
-                                        }
-                        
-                                        &:hover {
-                                            .project-window-text {
-                                                height: 100%;
-                                                grid-row: 1/3;
-                                                background-color: rgba(0, 0, 0, 0.8);
-                                                color: white;
-                                                justify-content: center;
-                                                border-radius: 5px;
-                                                
-                                                    p {
-                                                        transform: translateY(-20px);
-
-                                                        @media screen and (max-width: 700px) {
-                                                            transform: translateY(-10px);
-                                                        }
-                                                    }
-                                                    p:nth-of-type(3) {
-                                                        position: initial;
-                                                        visibility: visible;
-                                                    }
-                                            }
-                                            .project-img-container {
-                                                grid-row: 1/3
-                                            }
-                                        }
-                                }
+                            @include partial.display-cases-styling;
                         }
 
                         a {
@@ -407,25 +311,27 @@ body {
                 //Om mig
                 //Hero
                 #om-mig-hero {
+                    @include partial.responsive-margin-billede;
                     height: 600px;
                     position: relative;
                     display: flex;
-                    align-items: end;
+                    align-items: center;
 
                     @media screen and (max-width: 700px) {
                         height: auto;
                         flex-direction: column;
-                        background-color: red;
                     }
 
                         .hero-img-container {
                             position: absolute;
+                            right: 0;
                             height: 100%;
-                            width: 100%;
+                            width: calc(100% - 50px);
 
                             @media screen and (max-width: 700px) {
                                 position: initial;
                                 height: 300px;
+                                width: 100%;
                             }
 
                                 img {
@@ -439,8 +345,6 @@ body {
                         #om-hero-tekst-boks {
                             @include partial.tekst-boks;
                             z-index: 1;
-                            @include partial.responsive-margin-billede;
-                            margin-bottom: 50px;
 
                             @media screen and (max-width: 700px) {
                                 max-width: none;
@@ -691,15 +595,16 @@ body {
 
                 //Kontakt om side
                 #kontakt-om-side {
-                    @include partial.responsive-padding;
-                    display: flex;
-                    flex-direction: column;
+                    @include partial.responsive-margin;
+                    height: partial.$hero-højde;
+                    position: relative;
 
                         #kontakt-om-side-img-container {
-                            height: 550px;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            height: calc(100% - 50px);
                             width: calc(100% - 50px);
-                            justify-self: start;
-                            align-self: end;
                             z-index: 1;
 
                                 img {
@@ -710,8 +615,11 @@ body {
                                 }
                         }
                         #kontakt-om-side-tekst-boks {
-                            @include partial.tekst-boks;
-                            margin-top: -50px;
+                            @include partial.tekst-boks($max-width: 300px);
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
                             z-index: 2;
 
                             @media screen and (max-width: 700px) {
@@ -729,39 +637,25 @@ body {
                 #cases-hero {
                     @include partial.responsive-padding;
                     display: flex;
+                    gap: 100px;
+                    margin-top: 50px;
                     margin-bottom: 50px;
 
-                    @media screen and (max-width: 700px) {
+                    @media screen and (max-width: 1100px) {
                         flex-direction: column;
+                        gap: 50px;
                     }
 
                         #cases-hero-heading {
-                            margin-top: 50px;
-                            margin-bottom: 50px;
-                            padding: 50px;
-                            max-height: fit-content;
-                            max-width: fit-content;
-                            border: 1px solid partial.$off-black;
                             display: flex;
                             flex-direction: column;
                             gap: 20px;
-                            min-width: fit-content;
-                            z-index: 1;
-
-                            @media screen and (max-width: 700px) {
-                                margin-bottom: 0;
-                            }
 
                                 #cases-author {
                                     display: flex;
                                     gap: 20px;
                                     align-items: center;
-                                    margin-right: 50px;
-
-                                    @media screen and (max-width: 700px) {
-                                        margin-right: 0;
-                                        margin-bottom: 25px;
-                                    }
+                                    width: max-content;                            
 
                                         #portræt-img-container {
                                             height: 5em;
@@ -784,138 +678,27 @@ body {
                         }
                         #cases-hero-tekst-boks {
                             @include partial.tekst-boks($max-width: none);
-                            align-self: end;
-                            margin-left: -50px;
-                            margin-top: 100px;
-                            z-index: 2;
-
-                            @media screen and (max-width: 700px) {
-                                align-self: start;
-                                margin-left: 50px;
-                                margin-top: -50px;
-                            }
                         }
                 }
 
                 //Alle cases container
                 #alle-cases-container {
                     @include partial.responsive-padding;
-                    display: flex;
-                    gap: 50px;
-                    flex-wrap: wrap;
-
-                    @media screen and (max-width: 700px) {
-                        flex-direction: column;
-                    }
-
-                        .project {
-                            //flex: 1;
-                            cursor: pointer;
-                            width: calc(50% - 25px);
-                            min-height: 450px;
-                            max-height: 450px;
-                            border: 1px solid black;
-                            display: grid;
-                            grid-template-rows: minmax(0, 1fr) auto;
-                            grid-template-columns: 1fr;
-                            box-shadow: 0 0 0 0 partial.$detalje-farve;
-                            border-radius: 5px;
-                            overflow: hidden; //pga border-radius på container
-                            transition: transform 0.2s, box-shadow 0.2s;
-
-                            @media screen and (max-width: 700px) {
-                                width: 100%;
-                                //height: 450px;
-                            }
-
-                            &:hover {
-                                transform: translate(5px, -5px);
-                                box-shadow: -10px 10px 0px 0px partial.$detalje-farve;
-                                max-height: fit-content;
-                            }
-
-                                .project-img-container {
-                                    grid-row: 1/2;
-                                    grid-column: 1/2;
-
-                                        img {
-                                            height: 100%;
-                                            width: 100%;
-                                            object-fit: cover;
-                                            object-position: center;
-                                        }
-                                }
-                
-                                .project-window-text {
-                                    grid-row: 2/3;
-                                    grid-column: 1/2;
-                                    border-radius: 0 0 5px 5px;
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: end;
-                                    gap: 10px;
-                                    padding: 20px;
-                                    width: 100%;
-                                    height: fit-content;
-                                    color: partial.$off-black;
-                                    background-color: partial.$off-white;
-
-                                    @media screen and (max-width: 700px) {
-                                        padding: 10px;
-                                    }
-                                    
-                
-                                        p {
-                                            transition: transform 0.3s;
-                                        }
-                
-                                        p:nth-of-type(1) {
-                                            font-size: 2em;
-                                            font-weight: bold;
-                                        }
-                                        p:nth-of-type(3) {
-                                            position: absolute;
-                                            visibility: hidden;
-                                        }
-                                }
-                
-                                &:hover {
-                                    .project-window-text {
-                                        height: 100%;
-                                        grid-row: 1/3;
-                                        background-color: rgba(0, 0, 0, 0.8);
-                                        color: white;
-                                        justify-content: center;
-                                        border-radius: 5px;
-                                        
-                                            p {
-                                                transform: translateY(-20px);
-
-                                                @media screen and (max-width: 700px) {
-                                                    transform: translateY(-10px);
-                                                }
-                                            }
-                                            p:nth-of-type(3) {
-                                                position: initial;
-                                                visibility: visible;
-                                            }
-                                    }
-                                    .project-img-container {
-                                        grid-row: 1/3
-                                    }
-                                }
-                        }
+                    @include partial.display-cases-styling;
                 }
 
                 //Cases kontakt
                 #cases-kontakt {
-                    @include partial.responsive-padding;
-                    display: flex;
-                    flex-direction: column;
+                    @include partial.responsive-margin;
+                    height: 600px;
+                    position: relative;
 
                         #cases-kontakt-img-container {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
                             width: calc(100% - 50px);
-                            height: 550px;
+                            height: calc(100% - 50px);
                             z-index: 1;
 
                                 img {
@@ -927,8 +710,9 @@ body {
                         }
                         #cases-kontakt-tekst-boks {
                             @include partial.tekst-boks;
-                            align-self: end;
-                            margin-top: -50px;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
                             z-index: 2;
 
                                 a {
@@ -966,11 +750,117 @@ body {
                                 }
                         }
                 }
+
+                //Project Page
+                #brødkrummesti {
+                    @include partial.responsive-padding;
+                    display: flex;
+                    gap: 10px;
+
+                        a {
+                            color: partial.$off-black;
+                            text-decoration: none;
+                        }
+                }
+                #project-page-section {
+                    margin-top: 50px;
+                    @include partial.responsive-padding;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 100px;
+                    align-items: center;
+
+                        h1 {
+                            align-self: start;
+                        }
+
+                        .project-page-img-container {
+                            width: 100%;
+                            max-width: 1000px;
+                            //border: 1px solid partial.$off-black;
+                            border-radius: partial.$box-border-radius;
+                            overflow: hidden;
+                            box-shadow: -20px 15px 10px partial.$off-black;
+
+                                img {
+                                    display: block;
+                                    height: 100%;
+                                    width: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                        }
+
+                        .project-page-text-box {
+                            @include partial.tekst-boks;
+                        }
+
+                        #project-page-skills {
+                            width: fit-content;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 25px;
+                            align-items: center;
+
+                                #skills-used-grid {
+                                    display: flex;
+                                    gap: 25px;
+                                    flex-wrap: wrap;
+                                    max-width: 300px;
+                                    
+                                        p {
+                                            font-size: 1.3em;
+                                        }
+                                }
+                        }
+
+                        #project-link-container {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 25px;
+                            align-items: center;
+
+                                a {
+                                    @include partial.cta;
+                                }
+                        }
+
+                }
         }
 
         //Footer
         footer {
             grid-row: 3/4;
+
+                #footer-container {
+                    @include partial.responsive-padding;
+                    padding-top: 100px;
+                    padding-bottom: 100px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+
+                        .footer-column {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 25px;
+
+                                div {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 10px;
+                                }
+                        }
+                        .footer-column:nth-of-type(1) {
+                            grid-column: 1/2;
+                        }
+                        .footer-column:nth-of-type(2) {
+                            grid-column: 2/3;
+
+                                a {
+                                    color: partial.$off-black;
+                                }
+                        }
+                }
         }
 }
 
