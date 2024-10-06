@@ -97,6 +97,9 @@ body {
                                             color: partial.$detalje-farve;
                                         }
                                 }
+                                .active-link {
+                                    color: partial.$detalje-farve !important;
+                                }
                         }
 
                         //Burgermenu
@@ -133,10 +136,6 @@ body {
                                             color: partial.$off-black;
                                         }
                                 }
-                        }
-
-                        .active-link {
-                            color: partial.$detalje-farve !important;
                         }
                 }
         }
@@ -184,8 +183,10 @@ body {
                         #hero-tekst-container {
                             @include partial.tekst-boks;
                             z-index: 1;
-                            //margin-right: 50px;
-                            //@include partial.responsive-margin-billede;
+                            
+                            @media screen and (max-width: 900px) {
+                                max-width: 350px;
+                            }
 
                             @media screen and (max-width: 700px) {
                                 max-width: none;
@@ -345,6 +346,10 @@ body {
                         #om-hero-tekst-boks {
                             @include partial.tekst-boks;
                             z-index: 1;
+
+                            @media screen and (max-width: 900px) {
+                                max-width: 350px;
+                            }
 
                             @media screen and (max-width: 700px) {
                                 max-width: none;
@@ -728,9 +733,18 @@ body {
                     display: flex;
                     align-items: center;
 
+                    @media screen and (max-width: 700px) {
+                        flex-direction: column;
+                        align-items: start;
+                    }
+
                         #kontakt-img-container {
                             width: 50%;
                             aspect-ratio: 1/1;
+
+                            @media screen and (max-width: 700px) {
+                                width: calc(100% - 50px)
+                            }
 
                                 img {
                                     height: 100%;
@@ -742,6 +756,13 @@ body {
                         #kontakt-tekst-boks {
                             @include partial.tekst-boks($max-width: none);
                             margin-left: -50px;
+
+                            @media screen and (max-width: 700px) {
+                                margin-left: auto;
+                                margin-top: -50px;
+                                width: calc(100% - 50px);
+                                align-self: end;
+                            }
 
                                 #contact-info {
                                     display: flex;
@@ -838,6 +859,12 @@ body {
                     padding-bottom: 100px;
                     display: grid;
                     grid-template-columns: 1fr 1fr;
+
+                    @media screen and (max-width: 700px) {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 50px;
+                    }
 
                         .footer-column {
                             display: flex;

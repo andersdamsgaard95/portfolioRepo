@@ -1,129 +1,6 @@
 'Use strict';
 
-//Funktion til burgermenu toggle
-function toggleBurgerMenu () {
-
-    const burgerMenuIkon = document.getElementById('hamburger-ikon');
-    const burgerNav = document.getElementById('burger-nav');
-
-    burgerNav.style.display = 'none';
-
-    burgerMenuIkon.addEventListener('click', function () {
-        if (burgerNav.style.display === 'none') {
-            burgerNav.style.display = 'flex';
-            burgerMenuIkon.src = 'ikoner/hamburger-kryds-ikon.svg'
-        } else {
-            burgerNav.style.display = 'none';
-            burgerMenuIkon.src = 'ikoner/hamburgermenu-ikon.svg'
-        }
-    })
-
-}
-
-//Funktion til visning af header og footer
-function populateHeaderAndFooter () {
-
-    //Class til header-links
-    class GlobalNavLink {
-        constructor(name, href, dataId) {
-            this._name = name;
-            this._href = href;
-            this._dataId = dataId;
-        }
-
-        get name() {
-            return this._name;
-        }
-        get href() {
-            return this._href;
-        }
-        get dataId() {
-            return this._dataId
-        }
-    }
-
-    //Object med global-nav links
-    const globalNavLinks = {
-        cases: new GlobalNavLink ('Cases', 'cases.html', 'cases-side'),
-        omMig: new GlobalNavLink ('Om mig', 'ommig.html', 'om-side'),
-        kontakt: new GlobalNavLink ('Kontakt', 'kontakt.html', 'kontakt-side'),
-    }
-    const globalNavLinksArray = Object.keys(globalNavLinks);
-
-    //Henter alle globale navigations-diver - Header og burger
-    const globalNav = document.querySelectorAll('.header-nav');
-
-    //Opretter a-tag for hver link i alle nav-diver
-    globalNav.forEach((nav) => {
-        
-        globalNavLinksArray.forEach((index) => {
-            const globalNavLink = document.createElement('a');
-            globalNavLink.innerHTML = globalNavLinks[index].name;
-            globalNavLink.href = globalNavLinks[index].href;
-
-            if (globalNavLinks[index].dataId === document.body.id) {
-                globalNavLink.classList.add('active-link')
-            }
-
-            nav.appendChild(globalNavLink);
-        })
-    })
-
-    toggleBurgerMenu();
-
-    //Footer
-    const footerObject = {
-        headings: ['Kontakt', 'Relavante dokumenter'],
-        links: [
-            {
-                text: 'CV (Webudvikler)',
-                href: ''
-            },
-            {
-                text: 'CV (Gastronomi)',
-                href: 'dokumenter/CV-AndersDamsgaard-hospo.pdf'
-            }
-        ]
-    }
-
-    const footerContainer = document.getElementById('footer-container');
-
-        const footerKontaktColumn = document.createElement('div');
-        footerKontaktColumn.classList.add('footer-column');
-        footerContainer.appendChild(footerKontaktColumn);
-
-        const footerRelavanteDokumenterColumn = document.createElement('div');
-        footerRelavanteDokumenterColumn.classList.add('footer-column');
-        footerContainer.appendChild(footerRelavanteDokumenterColumn);
-
-        const footerColumns = document.querySelectorAll('.footer-column');
-            footerColumns.forEach( (column, index) => {
-                const footerHeading = document.createElement('h3');
-                footerHeading.innerHTML = footerObject.headings[index];
-                column.appendChild(footerHeading); 
-            })
-
-        const footerKontaktFlex = document.createElement('div');
-        footerKontaktColumn.appendChild(footerKontaktFlex);
-
-        developers.andersDamsgaard._contactInfo.forEach( (element) => {
-            const contactElement = document.createElement('p');
-            contactElement.innerHTML = element;
-            footerKontaktFlex.appendChild(contactElement);
-        })
-
-        const footerLinksFlex = document.createElement('div');
-        footerRelavanteDokumenterColumn.appendChild(footerLinksFlex);
-        footerObject.links.forEach( (link) => {
-            const footerDocument = document.createElement('a');
-            footerDocument.innerHTML = link.text;
-            footerDocument.href = link.href;
-            footerDocument.target = '_blank';
-            footerLinksFlex.appendChild(footerDocument);
-        })        
-}
-
-//Portfolio class
+//  PORTFOLIO INFO CLASS
 class Portfolio {
     constructor(name, birthdate, address, contactInfo, occupation, bio, skills, projects, portray) {
         this._name = name;
@@ -152,7 +29,7 @@ class Portfolio {
         skillsElement.innerHTML = `Skills: ${this._skills.join(', ')}`;
         heroPersonligInfo.appendChild(skillsElement);
 
-        //Display seneste cases på forside
+        //  Display seneste cases på forside
         const latestsCasesArray = this._projects.slice(0,2); //Slice projects-array til de 2 første
 
         const latestsCasesContainer = document.getElementById('seneste-cases-container');
@@ -171,7 +48,7 @@ class Portfolio {
 
     renderPortfolioInfoCasesPage() {
 
-        //Udfyld forfatter af cases
+        //  Udfyld forfatter af cases
         const casesHeroHeadingBoks = document.getElementById('cases-hero-heading');
         const casesAuthor = document.createElement('div');
         casesAuthor.id = 'cases-author';
@@ -189,7 +66,7 @@ class Portfolio {
         casesBy.innerHTML = `af ${this._name}`;
         casesAuthor.appendChild(casesBy);
 
-        //Display alle cases
+        //  Display alle cases
         const allCasesContainer = document.getElementById('alle-cases-container');
         
         displayCases(this._projects, allCasesContainer); 
@@ -222,38 +99,7 @@ class Portfolio {
     }
 }
 
-function displayCases(array, container) {
-    array.forEach( (project) => {
-        const projectWindow = document.createElement('div');
-        projectWindow.classList.add('project');
-        container.appendChild(projectWindow);
-
-        const projectWindowImgContainer = document.createElement('div');
-        projectWindowImgContainer.classList.add('project-img-container');
-        projectWindow.appendChild(projectWindowImgContainer);
-        const projectImg = document.createElement('img');
-        projectImg.src = project.picture;
-        projectWindowImgContainer.appendChild(projectImg);
-
-        const projectWindowText = document.createElement('a');
-        projectWindowText.classList.add('project-window-text');
-        projectWindowText.href = project.href;
-        projectWindow.appendChild(projectWindowText);
-
-        const projectTitleP = document.createElement('p')
-        projectTitleP.innerHTML = project.title;
-        projectWindowText.appendChild(projectTitleP);
-
-        const projectClient = document.createElement('p');
-        projectClient.innerHTML = `Klient: ${project.client}`;
-        projectWindowText.appendChild(projectClient);
-
-        const projectDescription = document.createElement('p');
-        projectDescription.innerHTML = project.description;
-        projectWindowText.appendChild(projectDescription);
-    })  
-}
-
+//  MULTIMEDIEDESIGNERE
 const developers = {
     andersDamsgaard: new Portfolio (
         'Anders Damsgaard',
@@ -261,41 +107,41 @@ const developers = {
         'Oslogade 2 st tv, Aarhus N',
         ['Telefon: +45 93964789', 'E-mail: andersdamsgaard95@gmail.com'],
         'Front-end webudvikler (studerende)',
-        'Bio hnjwsndjwnsjqnjdbnwqja',
-        ['JavaScript', 'css/scss', 'html', 'UI', 'UX', 'WordPress', 'Figma'],
+        'I 2016 fløj jeg til Malta for at slippe væk fra kedelige Danmark og opleve en form for eventyr. Planen var at ikke have nogen plan, og se hvor vinden ville føre mig hen. Vinden førte mig de følgende 8 år fra Malta til Australien, New Zealand, Østrig, Spanien, Frankrig, Portugal, Sri Lanka, Indonesien plus alt det løse. <br> Nu er jeg omsider vendt hjem for en stund for at tage min uddannelse seriøst og finde en ordentlig praktikplads.',
+        ['JavaScript', 'CSS/SCSS', 'HTML', 'UI', 'UX', 'WordPress', 'Figma'],
         [
             {
                 title: 'Bookingportal af sommerhus på Fanø',
                 client: 'Bjarne Rasmussen',
-                description: 'Længere beskrivelse... Webdesign og -udvikling med html, scss og js af bookinghjemmeside til sommerhus på Fanø. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error consequuntur officiis repudiandae autem minus natus. Quae neque ratione corporis laudantium odio corrupti facere harum, dolorum repudiandae aut sapiente, quos illo, eum fugiat tempora vel facilis enim voluptate delectus accusantium adipisci? Similique voluptates, provident necessitatibus consequatur aperiam delectus impedit blanditiis illo. Fanø.',
+                description: 'Hjemmesiden fremviser sommerhuset på elegant og troværdig vis og indeholder en brugervenlig bookingportal',
                 picture: "img/projekt-billeder/fanø-page-picture1.jpg",
                 href: 'projectpagefano.html'
             },
             {
-                title: 'WordPress webdesign or rebranding af FireFly',
-                client: 'RealLife skoleprojekt udarbejdet for Gate3Aps',
-                description: 'Længere beskrivelse... duiewesqw adoiwqjasnwq djiwqoskqwas dxwqopdjiwqjd xwqasdxwqand wqasdjxwqidjxwqas',
+                title: 'WordPress webdesign og rebranding af FireFly',
+                client: 'RealLife projektopgave udarbejdet for Gate3Aps',
+                description: 'Rebranding af produktet FireFly og udvikling af WordPress webdesign til showcasing og salg af produktet.',
                 picture: 'img/projekt-billeder/woodwatch.jpg',
                 href: 'projectPageWoodWatch.html'
             },
             {
-                title: 'DreamShot',
+                title: 'DreamShot multimediebureau',
                 client: 'Projektopgave på IBA',
-                description: 'Længere beskrivelse... Webdesign og -udvikling med html, scss og js af bookinghjemmeside til sommerhus på Fanø. Lorem ipsum dolor sit amet consectetur adipisicing elit. Error consequuntur officiis repudiandae autem minus natus. Quae neque ratione corporis laudantium odio corrupti facere harum, dolorum repudiandae aut sapiente, quos illo, eum fugiat tempora vel facilis enim voluptate delectus accusantium adipisci? Similique voluptates, provident necessitatibus consequatur aperiam delectus impedit blanditiis illo. Fanø.',
+                description: 'Målrettet markedsføringskampagne af fiktivt multimediebureau, DreamShot, med dertilhørende hjemmeside.',
                 picture: 'img/projekt-billeder/dreamshot-page-picture1.png',
                 href: 'dreamShotProjectPage.html'
             },
             {
-                title: 'Datasikkerhed',
+                title: 'Infoside vedr. overvågning på sociale medier ',
                 client: 'Projektopgave på IBA',
-                description: 'Længere beskrivelse',
+                description: 'Udarbejdelse af hjemmeside til information om overvågning på sociale medier, med fokus på forgrenede scenarier ved brug af JavaScript.',
                 picture: 'img/projekt-billeder/datasikkerhed-page-picture1.jpg',
                 href: 'datasikkerhedProjectPage.html'
             },
             {
-                title: 'Verninge',
-                client: 'Reallife projektopgave for Verninge Borgerforening',
-                description: 'Længere beskrivelse',
+                title: 'Verninge Borgerforenings nye hjemmeside',
+                client: 'RealLife projektopgave udarbejdet for Verninge Borgerforening',
+                description: 'Målgruppe segmentering og udarbejdelse af hjemmeside for Verninge Borgerforening.',
                 picture: 'img/projekt-billeder/verninge-page-picture1.png',
                 href: 'verningeProjectPage.html'
             }
@@ -304,15 +150,16 @@ const developers = {
     )
 }
 
-//Parrent Page Class
+//  PARRENT PAGE CLASS
 class Page {
-    constructor ({headings, descriptions, cta}) {
+    constructor ({headings, descriptions, cta, images}) {
         this._headings = headings;
         this._descriptions = descriptions;
         this._cta = cta;
+        this._images = images;
     }
 
-    //Error Message
+    //  ERROR MESSAGE
     renderPage() {
         const header = document.querySelector('header');
         const main = document.querySelector('main');
@@ -326,50 +173,61 @@ class Page {
         errorMessage.style.textAlign = 'center';
         main.appendChild(errorMessage);
     }
+
+    createImages () {
+        //  IMAGES
+        const imgContainers = document.querySelectorAll('.img-container');
+            //  CREATE IMG FOR EACH CONTAINER
+                imgContainers.forEach( (container, index) => {
+                    const img = document.createElement('img');
+                    img.src = this._images[index];
+                    container.appendChild(img);
+                })
+    }
 }
 
-//Front Page Child Class
+//  FRONT PAGE CHILD CLASS
 class FrontPage extends Page {
-    constructor({headings, descriptions, cta}) {
-        super({headings, descriptions, cta});
+    constructor({headings, descriptions, cta, images}) {
+        super({headings, descriptions, cta, images});
     }
 
     renderPage() {
-        //Getting hero container
+        //  GETTING HERO CONTAINER
         const heroTekstContainer = document.getElementById('hero-tekst-container');
-            //h1
+            //  H1
             const h1 = document.createElement('h1');
             h1.innerHTML = this._headings[0];
             heroTekstContainer.insertBefore(h1, heroTekstContainer.firstChild);
-            //CTA1
+            //  CTA1
             const cta1 = document.createElement('a');
             cta1.innerHTML = this._cta[0].text;
             cta1.href = this._cta[0].href;
             heroTekstContainer.appendChild(cta1);
 
-        //Getting cases container
+        //  GETTING CASES CONTAINER
         const senesteCasesSection = document.getElementById('seneste-cases');
-            //Heading
+            //  HEADING
             const h2 = document.createElement('h2');
             h2.innerHTML = this._headings[1];
             senesteCasesSection.insertBefore(h2, senesteCasesSection.firstChild);
-            //CTA
+            //  CTA
             const cta2 = document.createElement('a');
             cta2.innerHTML = this._cta[0].text;
             cta2.href = this._cta[0].href;
             senesteCasesSection.appendChild(cta2);
         
-        //Getting text box2
+        //  GETTING TEXT BOX 2
         const textbox2 = document.getElementById('om-mig-forside-tekst-boks');
-            //Heading
+            //  HEADING
             const h3 = document.createElement('h2');
             h3.innerHTML = this._headings[2];
             textbox2.appendChild(h3);
-            //Description
+            //  DESCRIPTION
             const description1 = document.createElement('p');
             description1.innerHTML = this._descriptions[0];
             textbox2.appendChild(description1);
-            //CTA
+            //  CTA
             const cta3 = document.createElement('a');
             cta3.innerHTML = this._cta[1].text;
             cta3.href = this._cta[1].href;
@@ -386,45 +244,53 @@ class FrontPage extends Page {
             cta4.innerHTML = this._cta[2].text;
             cta4.href = this._cta[2].href;
             textbox3.appendChild(cta4);
+        
+        this.createImages();
     }   
 }
 
 //CASES PAGE CHILD CLASS
 class CasesPage extends Page {
-    constructor({headings, descriptions, cta}) {
-        super({headings, descriptions, cta});
+    constructor({headings, descriptions, cta, images}) {
+        super({headings, descriptions, cta, images});
     }
 
     renderPage() {
-        //Getting heading container
+        // GETTING TEXT BOXES
         const headingContainer = document.getElementById('cases-hero-heading');
-            //Heading
+        const textBox1 = document.getElementById('cases-hero-tekst-boks');
+        const textBox2 = document.getElementById('cases-kontakt-tekst-boks');
+            
+        //  HEADING
             const h1 = document.createElement('h1');
             h1.innerHTML = this._headings[0];
             headingContainer.insertBefore(h1, headingContainer.firstChild);
-        //Getting Text Box    
-        const textBox1 = document.getElementById('cases-hero-tekst-boks');
-            //Description
+
+        //  BOX 1
+            //  DESCRIPTION
             const description1 = document.createElement('p');
             description1.innerHTML = this._descriptions;
             textBox1.appendChild(description1);
-        //Getting text box 2
-        const textBox2 = document.getElementById('cases-kontakt-tekst-boks');
-            //Heading
+            
+        //  BOX 2
+            // HEADING
             const h2 = document.createElement('h2');
             h2.innerHTML = this._headings[1];
             textBox2.appendChild(h2);
-            //CTA
+            //  CTA
             const cta1 = document.createElement('a');
             cta1.innerHTML = this._cta[0].text;
             cta1.href = this._cta[0].href;
             textBox2.appendChild(cta1);
+
+        this.createImages();
     }
 }
 
 class AboutPage extends Page {
-    constructor({headings, descriptions, cta}) {
-        super({headings, descriptions, cta});
+    constructor({headings, descriptions, cta, images, video}) {
+        super({headings, descriptions, cta, images});
+        this._video = video;
     }
 
     renderPage() {
@@ -478,6 +344,8 @@ class AboutPage extends Page {
             cta1.innerHTML = this._cta[0].text;
             cta1.href = this._cta[0].href;
             textBox5.appendChild(cta1);
+
+        this.createImages();
     }
 }
 
@@ -496,17 +364,17 @@ class ContactPage extends Page {
     }
 }
 
-//Pages Instances
+//  PAGES INSTANCES
 const pages = {
     frontPage: new FrontPage ({
         headings: [
-            'Portefølje',
-            'Seneste Cases',
-            'Jeg har aldrig brudt mig om ferier',
-            'Jeg forstår ikke, hvorfor I ikke har ringet endnu'
+                'Portefølje',
+                'Seneste Cases',
+                'Jeg har aldrig brudt mig om ferier',
+                'Jeg forstår ikke, hvorfor I ikke har ringet endnu'
         ],
         descriptions: [
-            'Jeg bestræber mig altid på at få en hverdag, jeg ikke har lyst til en ferie fra.'
+                'Jeg bestræber mig altid på at få en hverdag, jeg ikke har lyst til en ferie fra.'
         ],
         cta: [
                 {
@@ -521,40 +389,58 @@ const pages = {
                     text: 'Kontakt mig',
                     href: 'kontakt.html'
                 }
+        ],
+        images: [
+            "img/anders_damsgaard_med_laptop-3.jpg",
+            "img/anders_damsgaard_i_skov.jpg",
+            "img/serioes_anders.jpg"
         ]
     }),
     casesPage: new CasesPage ({
         headings: [
-            'Cases',
-            'Jeg kan sagtens lave flere'
+                'Cases',
+                'Jeg kan sagtens lave flere'
         ],
         descriptions: 
-            'Alle cases er udarbejdet af Anders Damsgaard som individuelt eller gruppeprojekt. <br> Der er en del forskel fra projekt til projekt, både i indhold og i kvalitet. Dette skyldes at der i skoleprojekter bliver stillet forskellige krav til forskellige projekter. Det betyder at fokus er forskellig fra projekt til projekt. Fx er der i nogle projekter højere fokus på det æstetiske og i andre på det tekniske. Desuden er generel kodning blevet lært sideløbende med udarbejdelsen af projekter, hvilket betyder at den tekniske kunnen har været mindre og mindre jo ældre projekterne er.',
+                'Alle cases er udarbejdet af Anders Damsgaard som individuelt eller gruppeprojekt. <br> Der er en del forskel fra projekt til projekt, både i indhold og i kvalitet. Dette skyldes at der i skoleprojekter bliver stillet forskellige krav til forskellige projekter. Det betyder at fokus er forskellig fra projekt til projekt. Fx er der i nogle projekter højere fokus på det æstetiske og i andre på det tekniske. Desuden er generel kodning blevet lært sideløbende med udarbejdelsen af projekter, hvilket betyder at den tekniske kunnen har været mindre og mindre jo ældre projekterne er.',
         cta: [
             {
                 text: 'Ansæt mig',
                 href: 'kontakt.html'
             }
+        ],
+        images: [
+            'img/sidder-pa-togskinner-2.jpg'
         ]
     }),
     aboutPage: new AboutPage ({
         headings: [
-            'Jeg har boet og arbejdet i 8 forskellige lande de sidste 8 år',
-            'Fritid overskrift',
-            'Arbejdserfaring Overskrift',
-            'Nu overskrift',
-            'Ring nu bare'
+                'Jeg har boet og arbejdet i 8 forskellige lande de sidste 8 år',
+                'Interesser',
+                'Arbejdserfaring',
+                'Webudvikling',
+                'Ring nu bare'
         ],
         descriptions: [
-            'Beskrivelse 1',
-            'Beskrivelse 2',
-            'beskrivelse 3'
+                'En af de store grunde til at jeg har flyttet så meget rundt er, at jeg har prioriteret mine hobbyer. Jeg har hovedsageligt jagtet ski og surf og tilrettelagt mit liv derefter. Jeg har altid været af den overbevisning at livet skal være sjovt, ellers er der ingenting, der giver mening.',
+                'Jeg har helt vildt meget erhvervserfaring. Bare ikke fra webudvikling. <br> Jeg har over 5 års international erfaring fra 8 forskellige lande indenfor restaurationsbranchen. Selvom bartending ikke har særlig meget til fælles med webudvikling, ved jeg hvad det vil sige at have ansvar og at gå selvstændigt til en opgave.',
+                'Min ambition med webudvikling er at blive god til det. Jeg ved, at det er en lang proces og at det kræver hårdt arbejde, men jeg føler mig motiveret, og jeg er klar til at yde mit bedste, for at det kan lykkedes.    '
         ],
         cta: [
             {
                 text: 'Kontakt mig',
                 href: 'kontakt.html'
             }
+        ],
+        images : [
+            "img/anders_ved_vand-2.jpg",
+            "img/anders_paa_ski.jpg",
+            "img/anders_surfer.png",
+            "img/anders_spiller_guitar.jpg",
+            "img/anders_shaker_cocktail.JPG",
+            "img/latteart.jpg",
+            "img/anders_strainer_cocktail.JPG",
+            "img/anders-paa-togskinner.jpg"
         ]
     }),
     contactPage: new ContactPage ({
@@ -564,7 +450,7 @@ const pages = {
     })
 }
 
-//Project page class
+//  PROJECT PAGE CLASS
 class ProjectPage {
     constructor(projectName, heading1, heading2, heading3, heading4, description1, description2, skillsUsed, picture1, picture2, link) {
         this._projectName = projectName;
@@ -619,12 +505,14 @@ class ProjectPage {
 
     renderProductPage() {
         
+        // GETTING MAIN
         const productPageMain = document.querySelector('main');
-    
+        //  RENDER MAIN 
         productPageMain.innerHTML = this.createPage();
-    
+        
+        //  GETTING SKILLS-USED CONTAINER
         const skillsUsedGrid = document.getElementById('skills-used-grid');
-    
+        //  PRINT SKILLS
         this._skillsUsed.forEach( (skill) => {
             const skillP = document.createElement('p');
             skillP.innerHTML = skill;
@@ -634,75 +522,239 @@ class ProjectPage {
     }
 }
 
+//  PROJECT PAGE INSTANCES
 const projectPages = {
     projectPageFano: new ProjectPage (
-        'Fanø Sommerhus Bookingportal',
-        'Fanø',
-        'Fanø2',
-        'Fanø3',
+        'Sommerhus på Fanø',
+        'Bookingportal af sommerhus på Fanø',
+        'Projektet',
+        'Webløsning',
         'Færdigheder brugt:',
-        'beskrivelse 1 fanø',
-        'beskrivelse2 fanø',
+        'Sommerhuset på Fanø er privatejet, og bliver til tider lejet ud, når det ikke benyttes af familien selv. Familien ønsker ikke at liste sommerhuset på populære offentlige portaler, da huset er tiltænkt kun at skulle lejes ud til bekendte og familier i den nære omkreds. Hjemmesiden skal derfor vise huset frem og forsøge at sælge en dejlig ferie på Fanø.  ',
+        'Hjemmesiden har et elegant og overskueligt design. Siden har tre primære funktioner; at vise huset visuelt frem, at give alt nødvendig fakta vedr. huset og tilbyde en bookingformular til booking af huset. <br> Hjemmesiden er kodet fra bunden med HTML, SCSS og JavaScript.',
         ['JavaScript', 'HTML', 'SCSS', 'Figma', 'UI', 'UX'],
         "img/projekt-billeder/fanø-page-picture2.png",
         "img/projekt-billeder/fanø-page-picture3.png",
         'https://www.fanø-sommerhus.dk'
     ),
     projectPageWoodWatch: new ProjectPage (
-        'WoodWatch brød',
-        'WoodWatch1',
-        'WoodWatch2',
-        'WoodWatch3',
+        'RealLife projekt - FireFly',
+        'WordPress webdesign or rebranding af FireFly',
+        'Projektet',
+        'Webløsning',
         'Færdigheder brugt:',
-        'beskrivelse 1 woodwatch',
-        'beskrivelse 2 woodwatch',
-        ['WordPress', 'CSS', 'Figma', 'UI', 'UX'],
+        'Virksomheden Gate3Aps ønskede at få hjemmeside til salg af produktet FireFly; et produkt brugt til justering af brændeovnsfyring i hjemmet. Herudover ønskede Gate3Aps en mere målrettet markedsføring af produktet.',
+        'Hjemmesiden er udarbejdet i WordPress efter krav i projektbeskrivelsen fra IBA. Siden tilbyder et indbydende og overskueligt layout. Designet taler direkte til målgruppen med dens 1950er stil. Brugeren kan med det samme danne sig et overblik over hvad formålet med siden er, hvad, det omdøbte produkt, WoodWatch, er for noget, hvordan det kan skabe værdi og hvordan det kan anskaffes. Siden indeholder desuden en simpel explainervideo lavet af undertegnet.',
+        ['WordPress', 'CSS', 'Figma', 'UI', 'UX', 'Adobe AfterEffects'],
         'img/projekt-billeder/woodwatch-page-picture2.png',
         'img/projekt-billeder/woodwatch-page-picture3.png',
         'https://mothasmilk.com/woodwatch/'
     ),
     projectPageDreamShot: new ProjectPage (
-        'DreamShot brød',
-        'DreamShot1',
-        'DreamShot2',
-        'DreamShot3',
+        'DreamShot multimediebureau',
+        'DreamShot multimediebureau',
+        'Projektet',
+        'Webløsning',
         'Færdigheder brugt:',
-        'beskrivelse 1 DreamShot',
-        'beskrivelse 2 DreamShot',
-        ['SCSS', 'HTML', 'Figma', 'UI', 'UX'],
+        'Gruppeprojektet gik ud på at gruppen skulle forestille sig at være et rigtigt multimediebureau. Der skulle derfor udføres markedsanalyse og målgruppesegmentering. Dernæst skulle der udarbejdes en markedsføringskampagne med dertilhørende hjemmeside.',
+        'Hjemmesiden henvender sig til en specifik målgruppe i caféindustrien. Den giver hurtigt udtryk for hvem den er tiltænkt og tilbyder et klart overblik over, hvad mediebureauet tilbyder. Samtidig udstråler hjemmesiden masser af personlighed som en del af markedsføringskampagnen. <br> Hjemmesiden er kodet fra bunden med HTML og SCSS (uden brug af JS).',
+        ['HTML', 'SCSS', 'Figma', 'UI', 'UX'],
         'img/projekt-billeder/dreamshot-page-picture2.png',
         'img/projekt-billeder/dreamshot-page-picture3.png',
         'https://mothasmilk.com/dreamshot-media/'
     ),
     projectPageDatasikkerhed: new ProjectPage (
-        'Datasikkerhed brød',
-        'Datasikkerhed1',
-        'Datasikkerhed2',
-        'Datasikkerhed3',
+        'Datasikkerhed projekt',
+        'Infoside vedr. overvågning på sociale medier',
+        'Projektet',
+        'Webløsning',
         'Færdigheder brugt:',
-        'beskrivelse 1 Datasikkerhed',
-        'beskrivelse 2 Datasikkerhed',
+        'I løbet af projektet blev der for første gang stiftet bekendtskab med JavaScript. Projektet gik ud på udarbejdelse af en hjemmeside, der formidler et aspekt af datasikkerhed. JavaScript blev implementeret ved udarbejdelse af forgrenede scenarier på hjemmesiden.',
+        'Hjemmesiden formidler problematikken ved overvågning på sociale medier. Brugeren bliver ført igennem siden, der først formidler problematikken, derefter tester brugerens egen adfærd og til sidst quizzer brugeren i den ny tilegnede viden.',
         ['JavaScript', 'SCSS', 'HTML', 'Figma', 'UX'],
         'img/projekt-billeder/datasikkerhed-page-picture2.png',
         'img/projekt-billeder/datasikkerhed-page-picture3.png',
         'https://mothasmilk.com/DatasikkerhedRepo/'
     ),
     projectPageVerninge: new ProjectPage (
-        'Verninge-brød',
-        'Verninge1',
-        'Verninge2',
-        'Verninge3',
+        'RealLife projekt - Verninge Borgerforening',
+        'Verninge Borgerforenings nye hjemmeside',
+        'Projektet',
+        'Webløsning',
         'Færdigheder brugt:',
-        'beskrivelse 1 Verninge',
-        'beskrivelse 2 Verninge',
-        ['CSS', 'HTML', 'Figma', 'UI', 'UX'],
+        'Verninge Borgerforening vil gerne have flere tilflyttere til byen. Derfor ville de have udarbejdet en ny hjemmeside, der tager højde for målgruppen og viser Verninge frem fra sin bedste side.',
+        'Hjemmesiden tager højde for den primære målgruppe, som udgør potentielle tilflyttere og den sekundære målgruppe, som udgør nuværende beboere. Hjemmesiden tilbyder en proppet, men overskuelig navigation, og visuelt repræsenterer Verninge som det fantastiske sted, det er. <br> Hjemmesiden er kodet fra bunden med HTML og CSS (Uden brug af JS).',
+        ['HTML', 'CSS', 'Figma', 'UI', 'UX'],
         'img/projekt-billeder/verninge-page-picture2.png',
         'img/projekt-billeder/verninge-page-picture3.png',
         'https://mothasmilk.com/verninge-og-omegn/'
     )
 }
 
-//Render pages
+//  FUNKTION TIL BURGERMENU TOGGLE
+function toggleBurgerMenu () {
+
+    const burgerMenuIkon = document.getElementById('hamburger-ikon');
+    const burgerNav = document.getElementById('burger-nav');
+
+    burgerNav.style.display = 'none';
+
+    burgerMenuIkon.addEventListener('click', function () {
+        if (burgerNav.style.display === 'none') {
+            burgerNav.style.display = 'flex';
+            burgerMenuIkon.src = 'ikoner/hamburger-kryds-ikon.svg'
+        } else {
+            burgerNav.style.display = 'none';
+            burgerMenuIkon.src = 'ikoner/hamburgermenu-ikon.svg'
+        }
+    })
+
+}
+
+//  FUNKTION TIL VISNING AF HEADER OG FOOTER
+function populateHeaderAndFooter () {
+
+    //  CLASS TIL HEADER LINKS
+    class GlobalNavLink {
+        constructor(name, href, dataId) {
+            this._name = name;
+            this._href = href;
+            this._dataId = dataId;
+        }
+
+        get name() {
+            return this._name;
+        }
+        get href() {
+            return this._href;
+        }
+        get dataId() {
+            return this._dataId
+        }
+    }
+
+    //  GLOBALE NAV LINKS
+    const globalNavLinks = {
+        cases: new GlobalNavLink ('Cases', 'cases.html', 'cases-side'),
+        omMig: new GlobalNavLink ('Om mig', 'ommig.html', 'om-side'),
+        kontakt: new GlobalNavLink ('Kontakt', 'kontakt.html', 'kontakt-side'),
+    }
+    const globalNavLinksArray = Object.keys(globalNavLinks);
+
+    //  HENTER ALLE GLOBALE NAV DIV'ER - HEADER OG BURGER
+    const globalNav = document.querySelectorAll('.header-nav');
+
+    //  OPRETTER A-TAG FOR HVER LINK I ALLE NAV'ER
+    globalNav.forEach((nav) => {
+        
+        globalNavLinksArray.forEach((index) => {
+            const globalNavLink = document.createElement('a');
+            globalNavLink.innerHTML = globalNavLinks[index].name;
+            globalNavLink.href = globalNavLinks[index].href;
+
+            if (globalNavLinks[index].dataId === document.body.id) {
+                globalNavLink.classList.add('active-link')
+            }
+
+            nav.appendChild(globalNavLink);
+        })
+    })
+
+    toggleBurgerMenu();
+
+    // FOOTER
+    const footerObject = {
+        headings: ['Kontakt', 'Relavante dokumenter'],
+        links: [
+            {
+                text: 'CV (Webudvikler)',
+                href: 'dokumenter/CV_webudvikling_AndersDamsgaard.pdf'
+            },
+            {
+                text: 'CV (Restauration)',
+                href: 'dokumenter/CV-AndersDamsgaard-hospo.pdf'
+            }
+        ]
+    }
+
+    const footerContainer = document.getElementById('footer-container');
+
+        const footerKontaktColumn = document.createElement('div');
+        footerKontaktColumn.classList.add('footer-column');
+        footerContainer.appendChild(footerKontaktColumn);
+
+        const footerRelavanteDokumenterColumn = document.createElement('div');
+        footerRelavanteDokumenterColumn.classList.add('footer-column');
+        footerContainer.appendChild(footerRelavanteDokumenterColumn);
+
+        const footerColumns = document.querySelectorAll('.footer-column');
+            footerColumns.forEach( (column, index) => {
+                const footerHeading = document.createElement('h3');
+                footerHeading.innerHTML = footerObject.headings[index];
+                column.appendChild(footerHeading); 
+            })
+
+        const footerKontaktFlex = document.createElement('div');
+        footerKontaktColumn.appendChild(footerKontaktFlex);
+
+        developers.andersDamsgaard._contactInfo.forEach( (element) => {
+            const contactElement = document.createElement('p');
+            contactElement.innerHTML = element;
+            footerKontaktFlex.appendChild(contactElement);
+        })
+
+        const footerLinksFlex = document.createElement('div');
+        footerRelavanteDokumenterColumn.appendChild(footerLinksFlex);
+        footerObject.links.forEach( (link) => {
+            const footerDocument = document.createElement('a');
+            footerDocument.innerHTML = link.text;
+            footerDocument.href = link.href;
+            footerDocument.target = '_blank';
+            footerLinksFlex.appendChild(footerDocument);
+        })        
+}
+
+// FUNKTION TIL DISPLAY AF CASES
+function displayCases(array, container) {
+    array.forEach( (project) => {
+        // OPRET CONTAINER TIL PROJEKT
+        const projectWindow = document.createElement('div');
+        projectWindow.classList.add('project');
+        container.appendChild(projectWindow);
+
+        //  OPRET IMG-CONTAINER
+        const projectWindowImgContainer = document.createElement('div');
+        projectWindowImgContainer.classList.add('project-img-container');
+        projectWindow.appendChild(projectWindowImgContainer);
+        //  OPRET IMG
+        const projectImg = document.createElement('img');
+        projectImg.src = project.picture;
+        projectWindowImgContainer.appendChild(projectImg);
+
+        //  OPRET KLIKBAR ELEMENT TIL TEKST
+        const projectWindowText = document.createElement('a');
+        projectWindowText.classList.add('project-window-text');
+        projectWindowText.href = project.href;
+        projectWindow.appendChild(projectWindowText);
+
+        //  OPRET PARAGRAF TIL PROJEKT-TITEL
+        const projectTitleP = document.createElement('p')
+        projectTitleP.innerHTML = project.title;
+        projectWindowText.appendChild(projectTitleP);
+
+        //  OPRET PARAGRAF TIL PROJEKT-KLIENT
+        const projectClient = document.createElement('p');
+        projectClient.innerHTML = `Klient: ${project.client}`;
+        projectWindowText.appendChild(projectClient);
+
+        //  OPRET PARAGRAF TIL PROJEKT-BESKRIVELSE
+        const projectDescription = document.createElement('p');
+        projectDescription.innerHTML = project.description;
+        projectWindowText.appendChild(projectDescription);
+    })  
+}
+
+//  RENDER PAGES
 populateHeaderAndFooter();
 switch(document.body.id) {
     case 'forside':
@@ -737,4 +789,3 @@ switch(document.body.id) {
         projectPages.projectPageVerninge.renderProductPage();
         break;
 }
- 

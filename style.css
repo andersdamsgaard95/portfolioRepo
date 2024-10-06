@@ -101,6 +101,9 @@ body header #header-container #global-nav a {
 body header #header-container #global-nav a:hover {
   color: #FF4D00;
 }
+body header #header-container #global-nav .active-link {
+  color: #FF4D00 !important;
+}
 body header #header-container #burger-menu {
   display: none;
 }
@@ -131,9 +134,6 @@ body header #header-container #burger-menu #burger-nav {
 body header #header-container #burger-menu #burger-nav a {
   text-decoration: none;
   color: #333333;
-}
-body header #header-container .active-link {
-  color: #FF4D00 !important;
 }
 body main {
   grid-row: 2/3;
@@ -203,6 +203,11 @@ body main #forside-hero #hero-tekst-container {
     padding: 10px;
   }
 }
+@media screen and (max-width: 900px) {
+  body main #forside-hero #hero-tekst-container {
+    max-width: 350px;
+  }
+}
 @media screen and (max-width: 700px) {
   body main #forside-hero #hero-tekst-container {
     max-width: none;
@@ -262,8 +267,7 @@ body main #seneste-cases #seneste-cases-container {
 }
 body main #seneste-cases #seneste-cases-container .project {
   width: calc(50% - 25px);
-  min-height: 450px;
-  max-height: 450px;
+  height: 450px;
   border: 1px solid black;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -281,8 +285,6 @@ body main #seneste-cases #seneste-cases-container .project {
 body main #seneste-cases #seneste-cases-container .project:hover {
   transform: translate(5px, -5px);
   box-shadow: -10px 10px 0px 0px #FF4D00;
-  max-height: -moz-fit-content;
-  max-height: fit-content;
 }
 body main #seneste-cases #seneste-cases-container .project .project-img-container {
   grid-row: 1/2;
@@ -301,6 +303,7 @@ body main #seneste-cases #seneste-cases-container .project .project-window-text 
   cursor: pointer;
   grid-row: 2/3;
   grid-column: 1/2;
+  height: 100%;
   border-radius: 0 0 5px 5px;
   display: flex;
   flex-direction: column;
@@ -593,6 +596,11 @@ body main #om-mig-hero #om-hero-tekst-boks {
 @media screen and (max-width: 700px) {
   body main #om-mig-hero #om-hero-tekst-boks {
     padding: 10px;
+  }
+}
+@media screen and (max-width: 900px) {
+  body main #om-mig-hero #om-hero-tekst-boks {
+    max-width: 350px;
   }
 }
 @media screen and (max-width: 700px) {
@@ -1117,8 +1125,7 @@ body main #alle-cases-container {
 }
 body main #alle-cases-container .project {
   width: calc(50% - 25px);
-  min-height: 450px;
-  max-height: 450px;
+  height: 450px;
   border: 1px solid black;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -1136,8 +1143,6 @@ body main #alle-cases-container .project {
 body main #alle-cases-container .project:hover {
   transform: translate(5px, -5px);
   box-shadow: -10px 10px 0px 0px #FF4D00;
-  max-height: -moz-fit-content;
-  max-height: fit-content;
 }
 body main #alle-cases-container .project .project-img-container {
   grid-row: 1/2;
@@ -1156,6 +1161,7 @@ body main #alle-cases-container .project .project-window-text {
   cursor: pointer;
   grid-row: 2/3;
   grid-column: 1/2;
+  height: 100%;
   border-radius: 0 0 5px 5px;
   display: flex;
   flex-direction: column;
@@ -1295,9 +1301,20 @@ body main #kontakt-sektion {
     padding-right: 10px;
   }
 }
+@media screen and (max-width: 700px) {
+  body main #kontakt-sektion {
+    flex-direction: column;
+    align-items: start;
+  }
+}
 body main #kontakt-sektion #kontakt-img-container {
   width: 50%;
   aspect-ratio: 1/1;
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-sektion #kontakt-img-container {
+    width: calc(100% - 50px);
+  }
 }
 body main #kontakt-sektion #kontakt-img-container img {
   height: 100%;
@@ -1323,6 +1340,14 @@ body main #kontakt-sektion #kontakt-tekst-boks {
 @media screen and (max-width: 700px) {
   body main #kontakt-sektion #kontakt-tekst-boks {
     padding: 10px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body main #kontakt-sektion #kontakt-tekst-boks {
+    margin-left: auto;
+    margin-top: -50px;
+    width: calc(100% - 50px);
+    align-self: end;
   }
 }
 body main #kontakt-sektion #kontakt-tekst-boks #contact-info {
@@ -1468,6 +1493,13 @@ body footer #footer-container {
   body footer #footer-container {
     padding-left: 10px;
     padding-right: 10px;
+  }
+}
+@media screen and (max-width: 700px) {
+  body footer #footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
   }
 }
 body footer #footer-container .footer-column {
